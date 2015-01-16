@@ -52,3 +52,21 @@ docs/_build/
 
 # PyBuilder
 target/
+
+.project
+.pydevproject
+.settings
+.settings/*
+test_pages
+test_pages/*
+src/*.txt
+*.txt
+src/old/*
+src/old
+
+.idea
+.idea/*
+
+src/*.html
+*.html
+*.ini
