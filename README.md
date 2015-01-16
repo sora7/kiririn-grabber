@@ -50,12 +50,19 @@ Other info:
 Approximate list of booru kiririn can grab pics from:
 
 SankakuChannel
+
 Danbooru
+
 Gelbooru (fucking ads)
+
 Safebooru
+
 Yande.re
+
 Konachan
+
 vocalo.booru.org
+
 Zerochan (some troubles with JS)
 
 idol.sankakucomplex.com (yes, 3DPD)
