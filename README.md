@@ -4,7 +4,8 @@ Picture grabber for sites on Danbooru engine and other
 
 This is the very first "working" version. It can parse tag results from only
 one site (chan.sankakucomplex.com), and can't download files (but create a
-.txt file with the direct links to pictures).
+.txt file with the direct links to pictures). You can use your favorite
+download manager (or even DownThemAll Firefox Extension).
 
 Xample usage:
 
@@ -36,11 +37,15 @@ Optional keys:
 -------
 
     -c, --continue
-Continue processing post links. 
+Continue processing the job. You can break/continue any time (search or posts processing).
 
     -o, --original
+Load original pics only (but not resized). By default, grabber load almost all pics.
 
-Nesessary keys:
+    -r, --resized
+Load resized pics only (if any). By default, grabber load almost all pics.
+
+Other info:
 -------
 Approximate list of booru kiririn can grab pics from:
 
@@ -53,6 +58,7 @@ Konachan
 vocalo.booru.org
 Zerochan (some troubles with JS)
 
+idol.sankakucomplex.com (yes, 3DPD)
 
 Requirements
 -------
