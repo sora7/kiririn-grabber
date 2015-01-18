@@ -57,12 +57,8 @@ target/
 .pydevproject
 .settings
 .settings/*
-test_pages
-test_pages/*
 src/*.txt
 *.txt
-src/old/*
-src/old
 
 .idea
 .idea/*

@@ -10,6 +10,7 @@ import sys
 from pprint import pprint
 
 from kiririn_main.web.opener import URLopen
+
 import kiririn_main.parsers.parser as parser
 
 CONFIG_ENCODING = 'ascii'
@@ -62,7 +63,7 @@ class Job(object):
         self.__config['PICS']['pic_count'] = '0'
 
 
-    # flush, (or refresh config with job file)
+    # flush, (or refresh config with job ini file)
     def __flush(self, mode):
         if mode == 'r':
             self.__config.read(self.__filepath, encoding=CONFIG_ENCODING)
@@ -106,13 +107,17 @@ class Job(object):
 
     @load_mode.setter
     def load_mode(self, mode):
-        self.__config['GENERAL']['load_resized'] == 'false'
-        self.__config['GENERAL']['load_original'] == 'false'
+        self.__config['GENERAL']['load_resized'] = 'false'
+        self.__config['GENERAL']['load_original'] = 'false'
 
-        if mode == 'r':
-            self.__config['GENERAL']['load_resized'] == 'true'
-        if mode == 'r':
-            self.__config['GENERAL']['load_original'] == 'true'
+        if mode['original']:
+            self.__config['GENERAL']['load_original'] = 'true'
+            print('LOAD ORIGINAL')
+
+        if mode['resized']:
+            self.__config['GENERAL']['load_resized'] = 'true'
+            print('LOAD RESIZED')
+
         self.__upd_time()
         self.__flush('w')
 
@@ -241,11 +246,11 @@ def search(site, tags, mode=''):
     job = Job()
     job.site = site
     job.tags = tags
-    if mode != '':
-        job.load_mode = mode
+    job.load_mode = mode
 
+    # return 0
     find_posts(parser, url)
-    process_posts()
+    process_posts(parser)
 
 
 def cont_search():
@@ -261,9 +266,9 @@ def cont_search():
     if not job.search_done:
         url = job.next
         find_posts(parser, url)
-        process_posts()
+        process_posts(parser)
     else:
-        process_posts()
+        process_posts(parser)
 
 
 def find_posts(parser, url):
@@ -286,7 +291,7 @@ def find_posts(parser, url):
         job.search_done = True
 
 
-def process_posts():
+def process_posts(parser):
     job = Job()
     # parser = job.site
     posts = job.read_posts()

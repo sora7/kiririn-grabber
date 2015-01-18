@@ -70,11 +70,5 @@ class Pause(object):
         multiplying sleep interval        
         '''
         self.__wait_time = list(map(lambda x: x * factor, self.__wait_time))
-        
-        
-        
-        
-        
-        
-        
-        
+
+

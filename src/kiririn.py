@@ -12,8 +12,6 @@ from pprint import pprint
 
 
 def main():
-    # test()
-    # return 0
     print('Kiririn Booru Grabber')
     args = parse_args()
     print('args:')
@@ -24,14 +22,17 @@ def main():
     else:
         site = args['site']
         tags = args['tags']
-        resized = args['resized']
-        original = args['original']
-        mode = ''
-        if resized:
-            mode = mode + 'r'
-        if original:
-            mode = mode + 'o'
-        print('mode:', mode)
+        if (not args['resized']) and (not args['original']):
+            original, resized = True, True
+        else:
+            resized = args['resized']
+            original = args['original']
+        mode = {
+            'original' : original,
+            'resized' : resized
+        }
+
+        # print('mode:', mode)
         # return 0
         search(site, tags, mode)
     #
@@ -81,13 +82,19 @@ def parse_args():
     return args
 
 def test():
+    print('test!')
     file1='3579391.txt'
     file2='3527738.txt'
     with open(file2, encoding='utf-8') as f:
         txt = f.read()
 
-    import kiririn_main.parsers.parser as parser
+    # import kiririn_main.parsers.parser as parser
+    # info = parser.parse_post(txt)
+
+    from kiririn_main.parser import BooruParser
+    parser = BooruParser('sankaku')
     info = parser.parse_post(txt)
+
     from pprint import pprint
     pprint(info.has_resized)
     pprint(info.resized_link)
@@ -149,4 +156,5 @@ def test_job():
 
 if __name__ == '__main__':
     main()
+    # test()
     # sankaku()

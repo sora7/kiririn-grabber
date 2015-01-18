@@ -1,23 +1,11 @@
 import re
+import os
+import configparser
 
 from kiririn_main.containers import SearchInfo
 from kiririn_main.containers import PostInfo
 
 from kiririn_main.parsers.sankaku import *
-
-class Parser(object):
-
-    def __init__(self, site):
-        pass
-
-    def query_url(self, tags):
-        pass
-
-    def parse_search(self, text):
-        pass
-
-    def parse_post(self, text):
-        pass
 
 
 def query_url(tags):
@@ -25,7 +13,6 @@ def query_url(tags):
     query = QUERY_URL + tags_str
 
     return query
-
 
 def parse_search(text):
     answer = SearchInfo()

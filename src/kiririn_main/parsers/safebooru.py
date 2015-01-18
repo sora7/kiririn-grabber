@@ -1,10 +1,6 @@
-'''
-Created on 13.12.2014
-'''
-
 #general
-NAME = 'sankaku'
-DESCRIPTION = ''
+NAME = 'safebooru'
+DESCRIPTION = 'stub template for Safebooru'
 
 #query
 QUERY_URL = 'https://chan.sankakucomplex.com/?tags='
