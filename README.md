@@ -7,7 +7,7 @@ one site (chan.sankakucomplex.com aka SankakuChannel), and can't download files
 (but create a .txt file with the direct links to pictures). You can use your
 favorite download manager or even DownThemAll Firefox Extension (recommended).
 
-Xample usage:
+# USAGE
 
     kiririn.py -s sankaku -t tag1 tag2 more_tag
 
@@ -24,7 +24,9 @@ and create file:
 
 with direct links to pics.
 
-Nesessary keys:
+#KEYS
+
+Main
 -------
 
     -s, --site
@@ -33,7 +35,7 @@ Site where you want to find (and load) pics
     -t, --tags
 List of tags you want to load. Note that this must be the LAST key
 
-Optional keys:
+Optional
 -------
 
     -c, --continue
@@ -47,11 +49,20 @@ pics.
     -r, --resized
 Load resized pics only (if any). By default, grabber load almost all pics.
 
-Other info:
+# OTHER
+
+Booru List:
+-------
 
 Approximate list of booru kiririn can grab pics from:
+(it's only declared functionality, not implemented yet)
+
+Danbooru-like:
+-------
 
 SankakuChannel
+
+idol.sankakucomplex.com (yes, 3DPD)
 
 Danbooru
 
@@ -67,10 +78,12 @@ vocalo.booru.org
 
 Zerochan (some troubles with JS)
 
-idol.sankakucomplex.com (yes, 3DPD)
-
-Requirements
+Non-danbooru:
 -------
+shimmie.4chanhouse.org
+shimmie.katawa-shoujo.com
+
+# REQUIREMENTS
 
 There's no special platform or system requirements, but python3. Tested on
 windows, possibly will work on linux.

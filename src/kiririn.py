@@ -165,7 +165,7 @@ def test_job():
     pprint(posts2)
 
 if __name__ == '__main__':
-    # main()
-    test_konachan()
+    main()
+    # test_konachan()
     # test()
     # sankaku()
