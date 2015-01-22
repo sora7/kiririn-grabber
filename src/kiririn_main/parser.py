@@ -5,8 +5,6 @@ import configparser
 from kiririn_main.containers import SearchInfo
 from kiririn_main.containers import PostInfo
 
-
-
 # BOORU_CONFIG_PATH = 'sites'
 # BOORU_CONFIG_ENCODING = 'utf-8'
 #
@@ -87,6 +85,7 @@ from kiririn_main.containers import PostInfo
 #         pass
 
 class BooruParser(object):
+    booru = {}
     NAME = ''
     DESCRIPTION = ''
     QUERY_URL = ''
@@ -110,7 +109,10 @@ class BooruParser(object):
     RATING_REGEX = ''
 
     def __init__(self, booru_config):
-        import kiririn_main.parsers.sankaku as module
+        if booru_config == 'sankaku':
+            import kiririn_main.parsers.sankaku as module
+        elif booru_config == 'konachan':
+            import kiririn_main.parsers.konachan as module
 
         self.prepare(module)
 
@@ -215,12 +217,17 @@ class BooruParser(object):
 
         # resized pic
         if self.PIC_RESIZE_REGEX.search(text):
+            print('OK')
             resized_link = self.PIC_RESIZE_REGEX.findall(text)[0]
+            print('RES:', resized_link)
+            return 0
             resized_link = self.PIC_RESIZE_PREFIX + resized_link
             answer.has_resized = True
             answer.resized_link = resized_link
         else:
             print('fuck res')
+
+        return 0
 
         # resized pic resolution
         if self.PIC_RESIZE_RES_REGEX.search(text):

@@ -4,7 +4,7 @@ Created on 13.12.2014
 
 #general
 NAME = 'sankaku'
-DESCRIPTION = ''
+DESCRIPTION = 'Sankaku Channel booru config'
 
 #query
 QUERY_URL = 'https://chan.sankakucomplex.com/?tags='
@@ -27,6 +27,7 @@ TAGS_REGEX = '<li class=tag-type-[^ ]*?><a href="/[?]tags=([^ ]*?)"'
 POSTED_REGEX = 'Posted: <a href="/[?]tags=date%3A\d{4}-\d{2}-\d{2}" title="(.+?)">.+?</a>'
 POSTED_AGO_REGEX = 'Posted: <a href="/[?]tags=date%3A\d{4}-\d{2}-\d{2}" title=".+?">(.+?)</a>'
 
+HAS_RESIZE = True
 PIC_RESIZE_REGEX = '<li>Resized: <a href="(//cs.sankakucomplex.com/data/sample/[^ ]{2}/[^ ]{2}/sample-[^ ]*?[.](?:jpg|png))[?]\d+?" id=lowres>\d+?x\d+?</a></li>'
 PIC_RESIZE_RES_REGEX = '<li>Resized: <a href="//cs.sankakucomplex.com/data/sample/[^ ]{2}/[^ ]{2}/sample-[^ ]*?[.](?:jpg|png)[?]\d+?" id=lowres>(\d+?x\d+?)</a></li>'
 PIC_RESIZE_PREFIX = 'https:'

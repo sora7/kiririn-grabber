@@ -101,6 +101,16 @@ def test():
     pprint(info.has_original)
     pprint(info.original_link)
 
+def test_konachan():
+    post_file = '181642.txt'
+    from kiririn_main.parser import BooruParser
+    parser = BooruParser('konachan')
+    with open(post_file) as pf:
+        txt = pf.read()
+    info = parser.parse_post(txt)
+    # print('RES:', info.resized_link)
+
+
 def sankaku():
     # print(sys.platform)
 
@@ -155,6 +165,7 @@ def test_job():
     pprint(posts2)
 
 if __name__ == '__main__':
-    main()
+    # main()
+    test_konachan()
     # test()
     # sankaku()
