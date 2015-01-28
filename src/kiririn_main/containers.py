@@ -75,10 +75,14 @@ class SearchInfo(object):
 
 class PostInfo():
     __has_original = False
+    __has_original2 = False
     __has_resized = False
     __original_link = ''
+    __original_link2 = ''
     __original_size = ''
+    __original_size2 = ''
     __original_res = ''
+    __original_res2 = ''
     __posted = ''
     __posted_ago = ''
     __rating = ''
@@ -91,10 +95,14 @@ class PostInfo():
     
     def __init__(self):
         self.__has_original = False
+        self.__has_original2 = False
         self.__has_resized = False
         self.__original_link = ''
+        self.__original_link2 = ''
         self.__original_size = ''
+        self.__original_size2 = ''
         self.__original_res = ''
+        self.__original_res2 = ''
         self.__posted = ''
         self.__posted_ago = ''
         self.__rating = ''
@@ -218,6 +226,36 @@ class PostInfo():
     
     @post_id.setter
     def post_id(self, value):
-        self.__post_id = value       
-       
-        
+        self.__post_id = value
+
+    @property
+    def has_original2(self):
+        return self.__has_original2
+
+    @has_original2.setter
+    def has_original2(self, value):
+        self.__has_original2 = value
+
+    @property
+    def original_link2(self):
+        return self.__original_link2
+
+    @original_link2.setter
+    def original_link2(self, value):
+        self.__original_link2 = value
+
+    @property
+    def original_size2(self):
+        return self.__original_size2
+
+    @original_size2.setter
+    def original_size2(self, value):
+        self.__original_size2 = value
+
+    @property
+    def original_res2(self):
+        return self.__original_res2
+
+    @original_res2.setter
+    def original_res2(self, value):
+        self.__original_res2 = value

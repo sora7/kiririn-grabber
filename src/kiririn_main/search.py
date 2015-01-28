@@ -9,6 +9,9 @@ from kiririn_main.job import Job
 
 import kiririn_main.parsers.parser as parser
 
+def load_parser(name):
+    pass
+
 def search(site, tags, mode=''):
     # sankaku parser
     # import kiririn_main.parsers.parser as parser

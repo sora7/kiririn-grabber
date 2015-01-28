@@ -1,39 +1,44 @@
-#general
-NAME = 'konachan'
-DESCRIPTION = 'stub template for Konachan.com'
+booru_data = {
+    'QUERY_PREFIX' : '',
+    'TAG_SEP' : '+',
+    #search
+    #if we want to del smtng before grab posts ('popular' section on sankakuclannel for example)
+    'DEL_TEXT' : False,
+    'DEL_REGEX' : '',
 
-#query
-QUERY_URL = 'https://chan.sankakucomplex.com/?tags='
-# QUERY_URL = '/?tags=%s&commit=Search'
-TAG_SEP = '+'
+    'NEXT_REGEX' : '',
+    'NEXT_PREFIX' : '',
 
-# search parse
-DEL_REGEX = ''
+    'POST_REGEX' : '',
+    'POST_PREFIX' : '',
+    #post
+    'POST_ID_REGEX' : '<li>Id: (\d*?)</li>',
+    'TAGS_REGEX' : '<li class="tag-link tag-type.*?" data-name="(.*?)" data-type=".*?"',
 
-NEXT_REGEX = ''
-NEXT_PREFIX = ''
+    # 'POSTED_REGEX' : '<li>Posted: <a href="/post?tags=date%3A\d{4}-\d{2}-\d{2}" title="(.*?)">.*?</a>.*?</li>',
+    # 'POSTED_AGO_REGEX' : '<li>Posted: <a href="/post?tags=date%3A\d{4}-\d{2}-\d{2}" title=".*?">(.*?)</a>.*?</li>',
+    #
+    # 'PIC_RESIZE_REGEX' : '<img alt=".*?".*?src="(http://konachan.com/image/.*?)".*?>',
+    # 'PIC_RESIZE_RES_REGEX' : '<li>Size: (\d*?x\d*?)</li>',
 
-POST_REGEX = ''
-POST_PREFIX = ''
+    'POSTED_REGEX' : '',
+    'POSTED_AGO_REGEX' : '',
 
-#post parse
-POST_ID_REGEX = ''
-TAGS_REGEX = ''
+    'PIC_RESIZE_REGEX' : '',
+    'PIC_RESIZE_RES_REGEX' : '',
 
-POSTED_REGEX = ''
-POSTED_AGO_REGEX = ''
+    'PIC_RESIZE_PREFIX' : '',
 
-PIC_RESIZE_REGEX = '<img alt=".*?" class="image" height="\d*?" id="image" large_height="\d*?" large_width="\d*?" src="(http://konachan.com/image/[a-z0-9]{32}/Konachan.com.*?.(?:jpg|png))" width="\d*?" />'
+    'PIC_ORIG_REGEX' : '<li><a class="original-file-changed" href="(http://konachan.com/[^ ]*?/[^ ]*?)" id="highres">Download larger version [(].*? [KM]B.*?[)]</a>',
+    'PIC_ORIG_RES_REGEX' : '',
+    'PIC_ORIG_SIZE_REGEX' : '<li><a class="original-file-changed" href="http://konachan.com/[^ ]*?/[^ ]*?" id="highres">Download larger version [(](.*? [KM]B).*?[)]</a>',
+    'PIC_ORIG_PREFIX' : '',
 
-PIC_RESIZE_RES_REGEX = '<img alt=".*?" class="image" height="\d*?" id="image" large_height="\d*?" large_width="\d*?" src="(http://konachan.com/image/[a-z0-9]{32}/Konachan.com.*?.(?:jpg|png))" width="\d*?" />'
-PIC_RESIZE_PREFIX = ''
+    'PIC_ORIG2' : True,
+    'PIC_ORIG2_REGEX' : '<li><a class="original-file-unchanged" href="(http://konachan.com/image/[^ ]*?/[^ ]*?)".*?[(].*? [KM]B.*?[)]</a>',
+    'PIC_ORIG2_RES_REGEX' : '',
+    'PIC_ORIG2_SIZE_REGEX' : '<li><a class="original-file-unchanged" href="http://konachan.com/image/[^ ]*?/[^ ]*?".*?[(](.*? [KM]B).*?[)]</a>',
+    'PIC_ORIG2_PREFIX' : '',
 
-PIC_ORIG_REGEX = ''
-PIC_ORIG_RES_REGEX = ''
-PIC_ORIG_SIZE_REGEX = ''
-PIC_ORIG_PREFIX = ''
-
-RATING_REGEX = '<li>Rating:\s([^ ]*?)</li>'
-
-
-
+    'RATING_REGEX' : '<li>Rating: ([^ ]*?) <span class="vote-desc"></span></li>'
+}

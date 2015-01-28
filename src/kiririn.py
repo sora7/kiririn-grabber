@@ -103,12 +103,25 @@ def test():
 
 def test_konachan():
     post_file = '181642.txt'
+    post_file = '195178.txt'
+    # post_file = '194838.txt'
     from kiririn_main.parser import BooruParser
     parser = BooruParser('konachan')
     with open(post_file) as pf:
         txt = pf.read()
     info = parser.parse_post(txt)
-    # print('RES:', info.resized_link)
+    print('ORIG:', info.original_link)
+    print('ORIG SIZE:', info.original_size)
+    print('ORIG2:', info.original_link2)
+    print('ORIG SIZE2:', info.original_size2)
+    print('RESIZED:', info.resized_link)
+    print('RESIZED RES:', info.resized_res)
+    print('RATING:', info.rating)
+    print('ID:', info.post_id)
+    print('POSTED:', info.posted)
+    print('POSTED AGO:', info.posted_ago)
+    pprint('tags')
+    pprint(info.tags)
 
 
 def sankaku():
@@ -136,33 +149,6 @@ def sankaku():
 
     # search(sankaku, ['shiramine_rika', 'aoyama_sumika'])
 
-
-def test_job():
-    from kiririn_main.search import Job
-    job = Job()
-    posts = ['https://chan.sankakucomplex.com/post/show/4066098',
- 'https://chan.sankakucomplex.com/post/show/4066095',
- 'https://chan.sankakucomplex.com/post/show/3919545',
- 'https://chan.sankakucomplex.com/post/show/3587366',
- 'https://chan.sankakucomplex.com/post/show/3586117',
- 'https://chan.sankakucomplex.com/post/show/3579391',
- 'https://chan.sankakucomplex.com/post/show/3527738',
- 'https://chan.sankakucomplex.com/post/show/3502269',
- 'https://chan.sankakucomplex.com/post/show/3397137',
- 'https://chan.sankakucomplex.com/post/show/3384707',
- 'https://chan.sankakucomplex.com/post/show/3384706',
- 'https://chan.sankakucomplex.com/post/show/3000716',
- 'https://chan.sankakucomplex.com/post/show/2969256',
- 'https://chan.sankakucomplex.com/post/show/2894858',
- 'https://chan.sankakucomplex.com/post/show/2782228',
- 'https://chan.sankakucomplex.com/post/show/2782223',
- 'https://chan.sankakucomplex.com/post/show/2474700',
- 'https://chan.sankakucomplex.com/post/show/2474697',
- 'https://chan.sankakucomplex.com/post/show/2048286',
- 'https://chan.sankakucomplex.com/post/show/2023040']
-    # job.write_posts(posts)
-    posts2 = job.read_posts()
-    pprint(posts2)
 
 if __name__ == '__main__':
     main()
