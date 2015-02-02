@@ -84,6 +84,7 @@ from kiririn_main.containers import PostInfo
 #     def parse_post(self, text):
 #         pass
 
+
 class BooruParser(object):
     def __init__(self, booru):
         if booru == 'sankaku':
@@ -92,11 +93,10 @@ class BooruParser(object):
             from kiririn_main.parsers.konachan import booru_data
 
         self.data = booru_data
-
         self.compile_regex()
 
     def compile_regex(self):
-        #compiling regex
+        # compiling regex
         if self.data['DEL_TEXT']:
             self.data['DEL_REGEX'] = re.compile(self.data['DEL_REGEX'], re.DOTALL)
 
@@ -159,7 +159,6 @@ class BooruParser(object):
             answer.has_posts = False
 
         return answer
-
 
     def parse_post(self, text):
         answer = PostInfo()
@@ -236,31 +235,33 @@ class BooruParser(object):
         else:
             print('cannot find orig resolution')
 
-        # original pic2
-        if self.data['PIC_ORIG2_REGEX'].search(text):
-            original_link = self.data['PIC_ORIG2_REGEX'].findall(text)[0]
-            original_link = self.data['PIC_ORIG2_PREFIX'] + original_link
+        if self.data['PIC_ORIG2']:
+            # original pic2
+            if self.data['PIC_ORIG2_REGEX'].search(text):
+                original_link = self.data['PIC_ORIG2_REGEX'].findall(text)[0]
+                original_link = self.data['PIC_ORIG2_PREFIX'] + original_link
 
-            answer.has_original2 = True
-            answer.original_link2 = original_link
-        else:
-            print('cannot find orig2')
+                answer.has_original2 = True
+                answer.original_link2 = original_link
+            else:
+                print('cannot find orig2')
 
-        # original pic size
-        if self.data['PIC_ORIG2_SIZE_REGEX'].search(text):
-            original_size = self.data['PIC_ORIG2_SIZE_REGEX'].findall(text)[0]
+            # original pic size
+            if self.data['PIC_ORIG2_SIZE_REGEX'].search(text):
+                original_size = self.data['PIC_ORIG2_SIZE_REGEX'].findall(text)[0]
 
-            answer.original_size2 = original_size
-        else:
-            print('cannot find orig2 size')
+                answer.original_size2 = original_size
+            else:
+                print('cannot find orig2 size')
 
-        # original pic resolution
-        if self.data['PIC_ORIG2_RES_REGEX'].search(text):
-            original_res = self.data['PIC_ORIG2_RES_REGEX'].findall(text)[0]
+            # original pic resolution
+            if self.data['PIC_ORIG2_RES_REGEX'].search(text):
+                original_res = self.data['PIC_ORIG2_RES_REGEX'].findall(text)[0]
 
-            answer.original_res2 = original_res
-        else:
-            print('cannot find orig2 resolution')
+                answer.original_res2 = original_res
+            else:
+                print('cannot find orig2 resolution')
+
 
         # rating
         if self.data['RATING_REGEX'].search(text):

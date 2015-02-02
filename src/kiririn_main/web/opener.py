@@ -6,6 +6,7 @@ from urllib.request import FancyURLopener
 import random 
 
 from kiririn_main.web.ua import USER_AGENTS
+
 from kiririn_main.main import Pause
 from kiririn_main.main import color_text
 

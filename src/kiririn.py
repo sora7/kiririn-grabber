@@ -7,7 +7,8 @@ Created on 13.12.2014
 import sys
 import argparse
 import kiririn_main.search
-from kiririn_main.search import search, cont_search
+from kiririn_main.search import search, cont_search, print_sites, add_posts, BOORU_AWAILABLE
+
 from pprint import pprint
 
 
@@ -17,25 +18,34 @@ def main():
     print('args:')
     pprint(args)
 
+    # sys.exit(-1)
+
     if args['continue']:
         cont_search()
     else:
-        site = args['site']
-        tags = args['tags']
-        if (not args['resized']) and (not args['original']):
-            original, resized = True, True
+        if args['site'] is None:
+            print_sites()
         else:
-            resized = args['resized']
-            original = args['original']
-        mode = {
-            'original' : original,
-            'resized' : resized
-        }
+            if (args['site']) not in BOORU_AWAILABLE:
+                print('Sorry, this site not supported yet...')
+            else:
+                # if mode don't touched we gonna load all pics we find))
+                if (not args['resized']) and (not args['original']):
+                    original, resized = True, True
+                else:
+                    resized = args['resized']
+                    original = args['original']
 
-        # print('mode:', mode)
-        # return 0
-        search(site, tags, mode)
-    #
+                mode = {
+                    'original' : original,
+                    'resized' : resized
+                }
+                if args['list'] is not False:
+                    add_posts(args['list'], args['site'], mode)
+                elif (args['tags'] is None) or (len(args['tags']) == 0):
+                    print('NO TAGS!')
+                else:
+                    search(args['site'], args['tags'], mode)
 
 
 def parse_args():
@@ -43,7 +53,9 @@ def parse_args():
 
     parser.add_argument('-s', '--site',
                         help='Site where you want to grab pics',
-                        required=True)
+                        nargs='?',
+                        default=False,
+                        required=False)
 
     parser.add_argument('-c', '--continue',
                         help='Continue processing the job',
@@ -70,13 +82,20 @@ def parse_args():
 
     parser.add_argument('-p', '--pool',
                         help='Pool you want to load',
+                        default=False,
+                        required=False
+                        )
+
+    parser.add_argument('-l', '--list',
+                        help='List of post urls you want to load pics',
+                        default=False,
                         required=False
                         )
 
     parser.add_argument('-t', '--tags',
                         nargs='*',
                         help='Picture tags, example: game_cg',
-                        required=True)
+                        required=False)
 
     args = vars(parser.parse_args())
     return args

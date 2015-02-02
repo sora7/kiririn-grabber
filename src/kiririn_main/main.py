@@ -10,15 +10,15 @@ import sys
 SYSTEM_OS = sys.platform
 
 COLOR_MAP = {
-'darkgrey'  : '\033[90m',
-'red'       : '\033[91m',
-'green'     : '\033[92m',
-'yellow'    : '\033[93m',
-'blue'      : '\033[94m',
-'purple'    : '\033[95m',
-'lightblue' : '\033[96m',
-'white'     : '\033[97m',
-'grey'      : '\033[98m'
+    'darkgrey'  : '\033[90m',
+    'red'       : '\033[91m',
+    'green'     : '\033[92m',
+    'yellow'    : '\033[93m',
+    'blue'      : '\033[94m',
+    'purple'    : '\033[95m',
+    'lightblue' : '\033[96m',
+    'white'     : '\033[97m',
+    'grey'      : '\033[98m'
 }
 COLOR_MAP_END = '\033[0m'
 
@@ -35,6 +35,7 @@ def color_text(text, color):
     else:
         return text
 
+
 def drange(a, b, step):
     '''
     like range(), but for double
@@ -43,6 +44,7 @@ def drange(a, b, step):
     while r < b:
             yield r
             r += step
+
 
 class Pause(object):
     '''

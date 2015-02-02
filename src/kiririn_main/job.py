@@ -13,6 +13,7 @@ class Job(object):
     __instance = None
     __config = None
 
+    # sinleton
     def __new__(cls, *args, **kwargs):
         if not cls.__instance:
             cls.__instance = super(Job, cls).__new__(cls, *args, **kwargs)

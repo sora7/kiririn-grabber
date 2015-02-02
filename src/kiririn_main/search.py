@@ -7,22 +7,29 @@ from pprint import pprint
 from kiririn_main.web.opener import URLopen
 from kiririn_main.job import Job
 
-import kiririn_main.parsers.parser as parser
+# import kiririn_main.parsers.parser as parser
 
-def load_parser(name):
-    pass
+from kiririn_main.parser import BooruParser
+
+BOORU_AWAILABLE = (
+    'sankaku',
+    'konachan'
+)
+
+def print_sites():
+    print('BOORU GRAB AVAILABLE FROM:')
+    print('sankaku')
+    print('konachan')
 
 def search(site, tags, mode=''):
-    # sankaku parser
-    # import kiririn_main.parsers.parser as parser
-
-    url = parser.query_url(tags)
     job = Job()
     job.site = site
     job.tags = tags
     job.load_mode = mode
 
-    # return 0
+    parser = BooruParser(job.site)
+    url = parser.query_url(tags)
+
     find_posts(parser, url)
     process_posts(parser)
 
@@ -35,7 +42,7 @@ def cont_search():
     #     sys.exit(-1)
         # TODO: try make next_url form query_url and start
 
-    # parser = job.site
+    parser = BooruParser(job.site)
 
     if not job.search_done:
         url = job.next
@@ -43,6 +50,17 @@ def cont_search():
         process_posts(parser)
     else:
         process_posts(parser)
+
+
+def add_posts(posts_file, site, mode=''):
+    job = Job()
+    job.search_done = True
+    job.add_posts(posts_file)
+    job.site = site
+    job.load_mode = mode
+
+    parser = BooruParser(job.site)
+    process_posts(parser)
 
 
 def find_posts(parser, url):
@@ -74,7 +92,9 @@ def process_posts(parser):
     last_post = job.last_post
 
     while (last_post < count):
-        print('Processing post %s of %s'%(last_post+1, count))
+        percent = round(float(last_post)/count*100, 4)
+        print('Processing post %s of %s [%s %s'%(last_post+1, count, percent, '%]'))
+
         post_url = posts[last_post]
         opener = URLopen()
         opener.connect(post_url)

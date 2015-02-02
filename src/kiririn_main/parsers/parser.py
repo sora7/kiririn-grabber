@@ -7,6 +7,8 @@ from kiririn_main.containers import PostInfo
 
 from kiririn_main.parsers.sankaku import *
 
+#OLD PARSER
+
 
 def query_url(tags):
     tags_str = TAG_SEP.join(tags)
