@@ -129,18 +129,19 @@ def test():
     pprint(info.original_link)
 
 def test_konachan():
-    post_file = '181642.txt'
-    post_file = '195178.txt'
-    # post_file = '194838.txt'
+    post_file = '187397.txt'
     from kiririn_main.parser import BooruParser
     parser = BooruParser('konachan')
     with open(post_file) as pf:
         txt = pf.read()
     info = parser.parse_post(txt)
+    print('HAS ORIG:', info.has_original)
     print('ORIG:', info.original_link)
     print('ORIG SIZE:', info.original_size)
+    print('HAS ORIG2:', info.has_original2)
     print('ORIG2:', info.original_link2)
     print('ORIG SIZE2:', info.original_size2)
+    print('HAS RESIZED:', info.has_resized)
     print('RESIZED:', info.resized_link)
     print('RESIZED RES:', info.resized_res)
     print('RATING:', info.rating)
@@ -148,7 +149,7 @@ def test_konachan():
     print('POSTED:', info.posted)
     print('POSTED AGO:', info.posted_ago)
     pprint('tags')
-    pprint(info.tags)
+    # pprint(info.tags)
 
 def test_sankaku():
     post_file = '3579391.txt'
@@ -201,7 +202,7 @@ def sankaku():
 
 if __name__ == '__main__':
     # main()
-    # test_konachan()
+    test_konachan()
     # test()
     # sankaku()
-    test_sankaku()
+    # test_sankaku()

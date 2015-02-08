@@ -91,7 +91,7 @@ class BooruParser(object):
             import kiririn_main.parsers.sankaku as booru_module
             # from kiririn_main.parsers.sankaku import booru_data
         elif booru == 'konachan':
-            from kiririn_main.parsers.konachan import booru_data
+            import kiririn_main.parsers.konachan as booru_module
 
         # self.data = booru_data
         self.__import_booru_data(booru_module)
@@ -107,6 +107,7 @@ class BooruParser(object):
             'QUERY_PREFIX': module.QUERY_PREFIX,
             'TAG_SEP': module.TAG_SEP,
             'QUERY_SUFFIX': module.QUERY_SUFFIX,
+            'TAG_MAX': int(module.TAG_MAX),
 
             'DEL_TEXT': module.DEL_TEXT,
             'DEL_REGEX': module.DEL_REGEX,
@@ -133,10 +134,10 @@ class BooruParser(object):
             'PIC_ORIG_PREFIX' : module.PIC_ORIG_PREFIX,
 
             'PIC_ORIG2' : module.PIC_ORIG2,
-            'PIC_ORIG_REGEX2' : module.PIC_ORIG_REGEX2,
-            'PIC_ORIG_RES_REGEX2' : module.PIC_ORIG_RES_REGEX2,
-            'PIC_ORIG_SIZE_REGEX2' : module.PIC_ORIG_SIZE_REGEX2,
-            'PIC_ORIG_PREFIX2' : module.PIC_ORIG_PREFIX2,
+            'PIC_ORIG2_REGEX' : module.PIC_ORIG2_REGEX,
+            'PIC_ORIG2_RES_REGEX' : module.PIC_ORIG2_RES_REGEX,
+            'PIC_ORIG2_SIZE_REGEX' : module.PIC_ORIG2_SIZE_REGEX,
+            'PIC_ORIG2_PREFIX' : module.PIC_ORIG2_PREFIX,
 
             'RATING_REGEX' : module.RATING_REGEX
         }
@@ -171,8 +172,14 @@ class BooruParser(object):
         self.data['RATING_REGEX'] = re.compile(self.data['RATING_REGEX'])
 
     def query_url(self, tags):
+        if len(tags) > self.data['TAG_MAX']:
+            print('% supports only %s tags'%(self.data['NAME'], self.data['TAG_MAX']))
+            print('tag list will be trimmed')
+            tags = tags[:self.data['TAG_MAX']]
+
         tags_str = self.data['TAG_SEP'].join(tags)
-        query = self.data['QUERY_PREFIX'] + tags_str
+
+        query = self.data['QUERY_PREFIX'] + tags_str + self.data['QUERY_SUFFIX']
 
         return query
 

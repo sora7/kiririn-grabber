@@ -1,44 +1,49 @@
-booru_data = {
-    'QUERY_PREFIX' : '',
-    'TAG_SEP' : '+',
-    #search
-    #if we want to del smtng before grab posts ('popular' section on sankakuclannel for example)
-    'DEL_TEXT' : False,
-    'DEL_REGEX' : '',
+# GENERAL
+NAME = 'konachan'
+DESCRIPTION = 'Konachan booru config'
 
-    'NEXT_REGEX' : '',
-    'NEXT_PREFIX' : '',
+# QUERY
+QUERY_PREFIX = 'http://konachan.com/post?tags='
+TAG_SEP = '+'
+QUERY_SUFFIX = ''
+TAG_MAX = 6
 
-    'POST_REGEX' : '',
-    'POST_PREFIX' : '',
-    #post
-    'POST_ID_REGEX' : '<li>Id: (\d*?)</li>',
-    'TAGS_REGEX' : '<li class="tag-link tag-type.*?" data-name="(.*?)" data-type=".*?"',
+# SEARCH
+#if we want to del smtng before grab posts ('popular' section on sankakuclannel for example)
+DEL_TEXT = False
+DEL_REGEX = ''
 
-    # 'POSTED_REGEX' : '<li>Posted: <a href="/post?tags=date%3A\d{4}-\d{2}-\d{2}" title="(.*?)">.*?</a>.*?</li>',
-    # 'POSTED_AGO_REGEX' : '<li>Posted: <a href="/post?tags=date%3A\d{4}-\d{2}-\d{2}" title=".*?">(.*?)</a>.*?</li>',
-    #
-    # 'PIC_RESIZE_REGEX' : '<img alt=".*?".*?src="(http://konachan.com/image/.*?)".*?>',
-    # 'PIC_RESIZE_RES_REGEX' : '<li>Size: (\d*?x\d*?)</li>',
+NEXT_REGEX = ''
+NEXT_PREFIX = ''
 
-    'POSTED_REGEX' : '',
-    'POSTED_AGO_REGEX' : '',
+POST_REGEX = ''
+POST_PREFIX = ''
 
-    'PIC_RESIZE_REGEX' : '',
-    'PIC_RESIZE_RES_REGEX' : '',
+# POST
+POST_ID_REGEX = '<li>Id: (\d*?)</li>'
+TAGS_REGEX = '<li class="tag-link tag-type.*?" data-name="(.*?)" data-type=".*?"'
 
-    'PIC_RESIZE_PREFIX' : '',
+# <li>Posted: <a href="/post?tags=date%3A2014-08-26" title="Tue Aug 26 06:53:57 2014">6 months ago</a> by <a href="/user/show/73493">kamenitza</a></li>
+# <li>Posted: <a href="/post?tags=date%3A2014-04-26" title="Sat Apr 26 13:10:36 2014">10 months ago</a> by <a href="/user/show/20645">Wiresetc</a></li>
 
-    'PIC_ORIG_REGEX' : '<li><a class="original-file-changed" href="(http://konachan.com/[^ ]*?/[^ ]*?)" id="highres">Download larger version [(].*? [KM]B.*?[)]</a>',
-    'PIC_ORIG_RES_REGEX' : '',
-    'PIC_ORIG_SIZE_REGEX' : '<li><a class="original-file-changed" href="http://konachan.com/[^ ]*?/[^ ]*?" id="highres">Download larger version [(](.*? [KM]B).*?[)]</a>',
-    'PIC_ORIG_PREFIX' : '',
+POSTED_REGEX = '<li>Posted: <a href=".*?" title="(.*?)">.*?</a> by <a href="/user/show/\d*?">.*?</a></li>'
+POSTED_AGO_REGEX = '<li>Posted: <a href=".*?" title=".*?">(.*?)</a> by <a href="/user/show/\d*?">.*?</a></li>'
 
-    'PIC_ORIG2' : True,
-    'PIC_ORIG2_REGEX' : '<li><a class="original-file-unchanged" href="(http://konachan.com/image/[^ ]*?/[^ ]*?)".*?[(].*? [KM]B.*?[)]</a>',
-    'PIC_ORIG2_RES_REGEX' : '',
-    'PIC_ORIG2_SIZE_REGEX' : '<li><a class="original-file-unchanged" href="http://konachan.com/image/[^ ]*?/[^ ]*?".*?[(](.*? [KM]B).*?[)]</a>',
-    'PIC_ORIG2_PREFIX' : '',
+PIC_RESIZE_REGEX = '<img alt=".*?".*?class="image".*?id="image".*?src="(http://konachan.com/.*?/Konachan.com.*?[.].{3})".*?>'
+PIC_RESIZE_RES_REGEX = ''
 
-    'RATING_REGEX' : '<li>Rating: ([^ ]*?) <span class="vote-desc"></span></li>'
-}
+PIC_RESIZE_PREFIX = ''
+
+PIC_ORIG_REGEX = '<li><a class="original-file-changed" href="(http://konachan.com/[^ ]*?/[^ ]*?)" id="highres">Download larger version [(].*? [KM]B.*?[)]</a>'
+PIC_ORIG_RES_REGEX = ''
+PIC_ORIG_SIZE_REGEX = '<li><a class="original-file-changed" href="http://konachan.com/[^ ]*?/[^ ]*?" id="highres">Download larger version [(](.*? [KM]B).*?[)]</a>'
+PIC_ORIG_PREFIX = ''
+
+PIC_ORIG2 = True
+PIC_ORIG2_REGEX = '<li><a class="original-file-unchanged" href="(http://konachan.com/image/[^ ]*?/[^ ]*?)".*?[(].*? [KM]B.*?[)]</a>'
+PIC_ORIG2_RES_REGEX = ''
+PIC_ORIG2_SIZE_REGEX = '<li><a class="original-file-unchanged" href="http://konachan.com/image/[^ ]*?/[^ ]*?".*?[(](.*? [KM]B).*?[)]</a>'
+PIC_ORIG2_PREFIX = ''
+
+RATING_REGEX = '<li>Rating: ([^ ]*?) <span class="vote-desc"></span></li>'
+

@@ -172,6 +172,7 @@ class Job(object):
         self.__upd_time()
         self.__flush('w')
 
+    # write down posts into POST list
     def write_posts(self, posts):
         post_count = int(self.__config['POSTS']['post_count'])
         for post_url in posts:
@@ -181,6 +182,7 @@ class Job(object):
         self.__upd_time()
         self.__flush('w')
 
+    # read posts from POST list
     def read_posts(self):
         # self.__flush('r')
         post_count = int(self.__config['POSTS']['post_count'])
@@ -190,30 +192,33 @@ class Job(object):
             posts.append(post)
         return posts
 
+    # append post urls from file to POST list
     def add_posts(self, posts_file):
         with open(posts_file, 'r') as posts_fh:
             posts = posts_fh.readlines()
         self.write_posts(posts)
 
+    # add pic url to pic list
     def __add_pic_url(self, pic_url):
         pic_count = int(self.__config['PICS']['pic_count'])
         self.__config['PICS'][str(pic_count)] = pic_url
         pic_count += 1
         self.__config['PICS']['pic_count'] = str(pic_count)
 
-    def write_pic(self, pic_info):
+    # add pic url to list and write list to disk
+    def write_pic(self, post_info):
         original = self.load_original
         resized = self.load_resized
 
         if resized:
-            if pic_info.has_resized:
-                self.__add_pic_url(pic_info.resized_link)
+            if post_info.has_resized:
+                self.__add_pic_url(post_info.resized_link)
             else:
                 pass
 
         if original:
-            if pic_info.has_original:
-                self.__add_pic_url(pic_info.original_link)
+            if post_info.has_original:
+                self.__add_pic_url(post_info.original_link)
             else:
                 # have no original?
                 pass
@@ -221,13 +226,23 @@ class Job(object):
         self.__upd_time()
         self.__flush('w')
 
-    def extract_pics(self):
-        FORBID_CHARS = (':', '`', '?')
-
-        pic_filename = self.site + '_' + '_'.join(self.tags) + '.txt'
+    # some forbidden chars in Windows))
+    @staticmethod
+    def clear_filename(filename):
+        # taken from https://msdn.microsoft.com/en-us/library/aa365247%28VS.85%29
+        # and some other experience;-)
+        FORBID_CHARS = ('<', '>', ':', '"', '/', '\\', '|', '?', '*', '`')
 
         for c in FORBID_CHARS:
-            pic_filename = pic_filename.replace(c, '_')
+            filename = filename.replace(c, '_')
+
+        return filename
+
+    # extract pic urls from PICS list into a txt file
+    def extract_pics(self):
+        pic_filename = self.site + '_' + '_'.join(self.tags) + '.txt'
+
+        pic_filename = self.clear_filename(pic_filename)
 
         with open(pic_filename, 'w') as pic_file:
             pic_count = int(self.__config['PICS']['pic_count'])
