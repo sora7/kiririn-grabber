@@ -201,8 +201,8 @@ def sankaku():
 
 
 if __name__ == '__main__':
-    # main()
-    test_konachan()
+    main()
+    # test_konachan()
     # test()
     # sankaku()
     # test_sankaku()

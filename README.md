@@ -30,10 +30,11 @@ Main
 -------
 
     -s, --site
-Site where you want to find (and load) pics
+Site where you want to find (and load) pics. If argument doesn't given it
+print list of booru grab awailable.
 
     -t, --tags
-List of tags you want to load. Note that this must be the LAST key
+List of tags you want to load. Note that this must be the LAST key.
 
 Optional
 -------
@@ -43,11 +44,14 @@ Continue processing the job. You can break/continue any time (search or posts
 processing).
 
     -o, --original
-Load original pics only (but not resized). By default, grabber load almost all
-pics.
+Load original pics only (but not resized). By default, grabber load almost
+all pics.
 
     -r, --resized
 Load resized pics only (if any). By default, grabber load almost all pics.
+
+    -l, --list-add
+Append posts urls from .txt file and start process.
 
 # OTHER
 
