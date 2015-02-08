@@ -46,11 +46,11 @@ PIC_ORIG_PREFIX = 'https:'
 # some booru (konachan) have 2 original pictures (png and jpg)
 PIC_ORIG2 = False
 # *nesessary
-PIC_ORIG_REGEX2 = ''
-PIC_ORIG_RES_REGEX2 = ''
-PIC_ORIG_SIZE_REGEX2 = ''
+PIC_ORIG2_REGEX = ''
+PIC_ORIG2_RES_REGEX = ''
+PIC_ORIG2_SIZE_REGEX = ''
 # *nesessary
-PIC_ORIG_PREFIX2 = ''
+PIC_ORIG2_PREFIX = ''
 
 RATING_REGEX = '<li>Rating:\s([^ ]*?)</li>'
 
