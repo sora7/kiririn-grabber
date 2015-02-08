@@ -128,6 +128,21 @@ def test():
     pprint(info.has_original)
     pprint(info.original_link)
 
+def test_konachan_search():
+    post_file = 'FILE.TXT'
+    from kiririn_main.parser import BooruParser
+    parser = BooruParser('konachan')
+    with open(post_file) as pf:
+        txt = pf.read()
+
+    info = parser.parse_search(txt)
+
+    print('HAS NEXT:', info.has_next)
+    print('NEXT:', info.next)
+    print('HAS POSTS:', info.has_posts)
+    print('POSTS:', info.posts)
+
+
 def test_konachan():
     post_file = '187397.txt'
     from kiririn_main.parser import BooruParser
@@ -203,6 +218,7 @@ def sankaku():
 if __name__ == '__main__':
     main()
     # test_konachan()
+    # test_konachan_search()
     # test()
     # sankaku()
     # test_sankaku()

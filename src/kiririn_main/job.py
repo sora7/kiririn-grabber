@@ -26,12 +26,17 @@ class Job(object):
         # disable the interpolation (symbol '%' used in url (e.g. %20 is '+'))
         self.__config = configparser.ConfigParser(interpolation=None)
 
+        # read job if file exists (continue)
         if os.path.exists(self.__filepath):
             self.__flush('r')
-            # pprint(self.__config.keys())
         else:
-            self.__default_config()
-            self.__flush('w')
+            # create new job file
+            self.new_job()
+
+    def new_job(self):
+        self.clear()
+        self.__default_config()
+        self.__flush('w')
 
     def __default_config(self):
         self.__config['GENERAL'] = {}
@@ -81,6 +86,7 @@ class Job(object):
 
     @site.setter
     def site(self, value):
+        print('SITE SETTER')
         self.__config['GENERAL']['site'] = value
         self.__upd_time()
         self.__flush('w')
@@ -219,6 +225,12 @@ class Job(object):
         if original:
             if post_info.has_original:
                 self.__add_pic_url(post_info.original_link)
+            else:
+                # have no original?
+                pass
+
+            if post_info.has_original2:
+                self.__add_pic_url(post_info.original_link2)
             else:
                 # have no original?
                 pass

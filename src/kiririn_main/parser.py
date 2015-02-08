@@ -149,6 +149,7 @@ class BooruParser(object):
         if self.data['DEL_TEXT']:
             self.data['DEL_REGEX'] = re.compile(self.data['DEL_REGEX'], re.DOTALL)
 
+        # print(self.data['NEXT_REGEX'])
         self.data['NEXT_REGEX'] = re.compile(self.data['NEXT_REGEX'])
         self.data['POST_REGEX'] = re.compile(self.data['POST_REGEX'])
 

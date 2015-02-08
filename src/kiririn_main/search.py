@@ -25,6 +25,8 @@ def print_sites():
 
 def search(site, tags, mode=''):
     job = Job()
+    job.new_job()
+
     job.site = site
     job.tags = tags
     job.load_mode = mode
@@ -66,6 +68,7 @@ def add_posts(posts_file, site, mode=''):
 
 
 def find_posts(parser, url):
+    pprint('FIND POSTS')
     opener = URLopen()
     opener.connect(url)
     html_text = opener.get_html()
@@ -73,8 +76,10 @@ def find_posts(parser, url):
     job = Job()
 
     search_info = parser.parse_search(html_text)
+
     if search_info.has_posts:
         posts = search_info.posts
+        pprint(posts)
         job.write_posts(posts)
 
     if search_info.has_next:

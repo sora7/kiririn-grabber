@@ -13,11 +13,12 @@ TAG_MAX = 6
 DEL_TEXT = False
 DEL_REGEX = ''
 
-NEXT_REGEX = ''
+
+NEXT_REGEX = '<a class="next_page" rel="next" href="(http://konachan.com/post[?]page=\d*?&amp;tags=.*?)">Next.*?</a>'
 NEXT_PREFIX = ''
 
-POST_REGEX = ''
-POST_PREFIX = ''
+POST_REGEX = '<a class="thumb" href="(/post/show/\d*?/.*?)" >'
+POST_PREFIX = 'http://konachan.com'
 
 # POST
 POST_ID_REGEX = '<li>Id: (\d*?)</li>'
