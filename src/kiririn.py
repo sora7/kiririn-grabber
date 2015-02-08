@@ -16,7 +16,7 @@ def main():
     print('Kiririn Booru Grabber')
     args = parse_args()
     print('args:')
-    pprint(args)
+    # pprint(args)
 
     # sys.exit(-1)
 
@@ -24,6 +24,8 @@ def main():
         cont_search()
     else:
         if args['site'] is None:
+            # -s --site without args:
+            # print supported booru
             print_sites()
         else:
             if (args['site']) not in BOORU_AWAILABLE:
@@ -37,9 +39,12 @@ def main():
                     original = args['original']
 
                 mode = {
-                    'original' : original,
-                    'resized' : resized
+                    'original': original,
+                    'resized': resized
                 }
+                # pprint(mode)
+
+                # sys.exit(-1)
                 if args['list'] is not False:
                     add_posts(args['list'], args['site'], mode)
                 elif (args['tags'] is None) or (len(args['tags']) == 0):
@@ -69,7 +74,8 @@ def parse_args():
                         nargs='?',
                         const=True,
                         default=False,
-                        required=False
+                        required=False,
+                        type=bool
                         )
 
     parser.add_argument('-r', '--resized',
@@ -77,7 +83,8 @@ def parse_args():
                         nargs='?',
                         const=True,
                         default=False,
-                        required=False
+                        required=False,
+                        type=bool
                         )
 
     parser.add_argument('-p', '--pool',
@@ -93,7 +100,8 @@ def parse_args():
                         )
 
     parser.add_argument('-t', '--tags',
-                        nargs='*',
+                        # nargs='*',
+                        nargs=argparse.REMAINDER,
                         help='Picture tags, example: game_cg',
                         required=False)
 
@@ -142,6 +150,28 @@ def test_konachan():
     pprint('tags')
     pprint(info.tags)
 
+def test_sankaku():
+    post_file = '3579391.txt'
+    # post_file = '194838.txt'
+    from kiririn_main.parser import BooruParser
+    parser = BooruParser('sankaku')
+    with open(post_file) as pf:
+        txt = pf.read()
+    info = parser.parse_post(txt)
+    print('HAS ORIG:', info.has_original)
+    print('ORIG:', info.original_link)
+    print('ORIG SIZE:', info.original_size)
+    # print('ORIG2:', info.original_link2)
+    # print('ORIG SIZE2:', info.original_size2)
+    print('HAS RESIZED:', info.has_resized)
+    print('RESIZED:', info.resized_link)
+    print('RESIZED RES:', info.resized_res)
+    print('RATING:', info.rating)
+    print('ID:', info.post_id)
+    print('POSTED:', info.posted)
+    print('POSTED AGO:', info.posted_ago)
+    pprint('tags')
+    pprint(info.tags)
 
 def sankaku():
     # print(sys.platform)
@@ -170,7 +200,8 @@ def sankaku():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
     # test_konachan()
     # test()
     # sankaku()
+    test_sankaku()

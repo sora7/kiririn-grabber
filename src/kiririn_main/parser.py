@@ -88,12 +88,60 @@ from kiririn_main.containers import PostInfo
 class BooruParser(object):
     def __init__(self, booru):
         if booru == 'sankaku':
-            from kiririn_main.parsers.sankaku import booru_data
+            import kiririn_main.parsers.sankaku as booru_module
+            # from kiririn_main.parsers.sankaku import booru_data
         elif booru == 'konachan':
             from kiririn_main.parsers.konachan import booru_data
 
-        self.data = booru_data
+        # self.data = booru_data
+        self.__import_booru_data(booru_module)
         self.compile_regex()
+
+    def __import_booru_data(self, module):
+        # import module
+
+        booru_data = {
+            'NAME': module.NAME,
+            'DESCRIPTION': module.DESCRIPTION,
+
+            'QUERY_PREFIX': module.QUERY_PREFIX,
+            'TAG_SEP': module.TAG_SEP,
+            'QUERY_SUFFIX': module.QUERY_SUFFIX,
+
+            'DEL_TEXT': module.DEL_TEXT,
+            'DEL_REGEX': module.DEL_REGEX,
+
+            'NEXT_REGEX': module.NEXT_REGEX,
+            'NEXT_PREFIX': module.NEXT_PREFIX,
+
+            'POST_REGEX': module.POST_REGEX,
+            'POST_PREFIX': module.POST_PREFIX,
+
+            'POST_ID_REGEX': module.POST_ID_REGEX,
+            'TAGS_REGEX': module.TAGS_REGEX,
+
+            'POSTED_REGEX' : module.POSTED_REGEX,
+            'POSTED_AGO_REGEX' : module.POSTED_AGO_REGEX,
+
+            'PIC_RESIZE_REGEX' : module.PIC_RESIZE_REGEX,
+            'PIC_RESIZE_RES_REGEX' : module.PIC_RESIZE_RES_REGEX,
+            'PIC_RESIZE_PREFIX' : module.PIC_RESIZE_PREFIX,
+
+            'PIC_ORIG_REGEX' : module.PIC_ORIG_REGEX,
+            'PIC_ORIG_RES_REGEX' : module.PIC_ORIG_RES_REGEX,
+            'PIC_ORIG_SIZE_REGEX' : module.PIC_ORIG_SIZE_REGEX,
+            'PIC_ORIG_PREFIX' : module.PIC_ORIG_PREFIX,
+
+            'PIC_ORIG2' : module.PIC_ORIG2,
+            'PIC_ORIG_REGEX2' : module.PIC_ORIG_REGEX2,
+            'PIC_ORIG_RES_REGEX2' : module.PIC_ORIG_RES_REGEX2,
+            'PIC_ORIG_SIZE_REGEX2' : module.PIC_ORIG_SIZE_REGEX2,
+            'PIC_ORIG_PREFIX2' : module.PIC_ORIG_PREFIX2,
+
+            'RATING_REGEX' : module.RATING_REGEX
+        }
+
+        self.data = booru_data
 
     def compile_regex(self):
         # compiling regex
@@ -160,116 +208,162 @@ class BooruParser(object):
 
         return answer
 
-    def parse_post(self, text):
-        answer = PostInfo()
+    @staticmethod
+    def __get_by_regex(text, regex=None, prefix=None, name=''):
+        if regex.search(text):
+            info = regex.findall(text)[0]
+            if prefix is not None:
+                return '%s%s'%(prefix, info)
+            else:
+                return info
+        else:
+            print('cannot find %s'%(name))
+            return None
 
+    def __get_id(self, text):
+        # return self.__get_by_regex(text, regex=self.data['POST_ID_REGEX'], name='post id')
         # find post id
         if self.data['POST_ID_REGEX'].search(text):
             post_id = self.data['POST_ID_REGEX'].findall(text)[0]
-            answer.post_id = post_id
+            return post_id
         else:
             print('cannot find post id')
+            return None
 
+    def __get_tags(self, text):
         # extract tags
         if self.data['TAGS_REGEX'].search(text):
             tags = self.data['TAGS_REGEX'].findall(text)
-            answer.tags = tags
+            return tags
         else:
             print('cannot find tags')
+            return None
 
+    def __get_posted_datetime(self, text):
         # extract datetime when posted
         if self.data['POSTED_REGEX'].search(text):
             posted = self.data['POSTED_REGEX'].findall(text)[0]
-            answer.posted = posted
+            return posted
         else:
             print('cannot find datetime')
+            return None
 
+    def __get_posted_ago(self, text):
         # extract how much time ago posted
         if self.data['POSTED_AGO_REGEX'].search(text):
             posted_ago = self.data['POSTED_AGO_REGEX'].findall(text)[0]
-            answer.posted_ago = posted_ago
+            return posted_ago
         else:
             print('cannot find datetime ago')
+            return None
 
+    def __get_resized_pic(self, text):
         # resized pic
         if self.data['PIC_RESIZE_REGEX'].search(text):
             print('OK')
             resized_link = self.data['PIC_RESIZE_REGEX'].findall(text)[0]
             resized_link = self.data['PIC_RESIZE_PREFIX'] + resized_link
-            answer.has_resized = True
-            answer.resized_link = resized_link
+            return (True, resized_link)
         else:
-            print('cannot find resized')
+            print('cannot find resized pic')
+            return (False, None)
 
-
+    def __get_resized_res(self, text):
         # resized pic resolution
         if self.data['PIC_RESIZE_RES_REGEX'].search(text):
             resized_res = self.data['PIC_RESIZE_RES_REGEX'].findall(text)[0]
-            answer.resized_res = resized_res
+            return resized_res
         else:
             print('cannot find resized resolution')
+            return None
 
+    def __get_original_pic(self, text):
         # original pic
         if self.data['PIC_ORIG_REGEX'].search(text):
             original_link = self.data['PIC_ORIG_REGEX'].findall(text)[0]
             original_link = self.data['PIC_ORIG_PREFIX'] + original_link
-
-            answer.has_original = True
-            answer.original_link = original_link
+            return (True, original_link)
         else:
-            print('cannot find orig')
+            print('cannot find original pic')
+            return (False, None)
 
+    def __get_original_size(self, text):
         # original pic size
         if self.data['PIC_ORIG_SIZE_REGEX'].search(text):
             original_size = self.data['PIC_ORIG_SIZE_REGEX'].findall(text)[0]
-
-            answer.original_size = original_size
+            return original_size
         else:
-            print('cannot find orig size')
+            print('cannot find original size')
+            return None
 
+    def __get_original_res(self, text):
         # original pic resolution
         if self.data['PIC_ORIG_RES_REGEX'].search(text):
             original_res = self.data['PIC_ORIG_RES_REGEX'].findall(text)[0]
-
-            answer.original_res = original_res
+            return original_res
         else:
-            print('cannot find orig resolution')
+            print('cannot find original resolution')
+            return None
 
-        if self.data['PIC_ORIG2']:
-            # original pic2
-            if self.data['PIC_ORIG2_REGEX'].search(text):
-                original_link = self.data['PIC_ORIG2_REGEX'].findall(text)[0]
-                original_link = self.data['PIC_ORIG2_PREFIX'] + original_link
+    def __get_original_pic2(self, text):
+        # original pic
+        if self.data['PIC_ORIG2_REGEX'].search(text):
+            original_link = self.data['PIC_ORIG2_REGEX'].findall(text)[0]
+            original_link = self.data['PIC_ORIG2_PREFIX'] + original_link
+            return (True, original_link)
+        else:
+            print('cannot find original pic')
+            return (False, None)
 
-                answer.has_original2 = True
-                answer.original_link2 = original_link
-            else:
-                print('cannot find orig2')
+    def __get_original_size2(self, text):
+        # original pic size
+        if self.data['PIC_ORIG2_SIZE_REGEX'].search(text):
+            original_size = self.data['PIC_ORIG2_SIZE_REGEX'].findall(text)[0]
+            return original_size
+        else:
+            print('cannot find original size')
+            return None
 
-            # original pic size
-            if self.data['PIC_ORIG2_SIZE_REGEX'].search(text):
-                original_size = self.data['PIC_ORIG2_SIZE_REGEX'].findall(text)[0]
+    def __get_original_res2(self, text):
+        # original pic resolution
+        if self.data['PIC_ORIG2_RES_REGEX'].search(text):
+            original_res = self.data['PIC_ORIG2_RES_REGEX'].findall(text)[0]
+            return original_res
+        else:
+            print('cannot find original resolution')
+            return None
 
-                answer.original_size2 = original_size
-            else:
-                print('cannot find orig2 size')
-
-            # original pic resolution
-            if self.data['PIC_ORIG2_RES_REGEX'].search(text):
-                original_res = self.data['PIC_ORIG2_RES_REGEX'].findall(text)[0]
-
-                answer.original_res2 = original_res
-            else:
-                print('cannot find orig2 resolution')
-
-
+    def __get_rating(self, text):
         # rating
         if self.data['RATING_REGEX'].search(text):
             rating = self.data['RATING_REGEX'].findall(text)[0]
-
-            answer.rating = rating
+            return rating
         else:
             print('cannot find rating')
+            return None
+
+    def parse_post(self, text):
+        answer = PostInfo()
+
+        answer.post_id      = self.__get_id(text)
+        answer.tags         = self.__get_tags(text)
+        answer.posted       = self.__get_posted_datetime(text)
+        answer.posted_ago   = self.__get_posted_ago(text)
+
+        (answer.has_resized, answer.resized_link) = self.__get_resized_pic(text)
+        answer.resized_res = self.__get_resized_res(text)
+        (answer.has_original, answer.original_link) = self.__get_original_pic(text)
+
+        answer.original_size = self.__get_original_size(text)
+        answer.original_res = self.__get_original_size(text)
+
+        if self.data['PIC_ORIG2']:
+            (answer.has_original2, answer.original_link2) = self.__get_original_pic2(text)
+
+            answer.original_size2 = self.__get_original_size2(text)
+            answer.original_res2 = self.__get_original_size2(text)
+
+        answer.rating = self.__get_rating(text)
 
         return answer
 

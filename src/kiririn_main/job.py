@@ -222,7 +222,13 @@ class Job(object):
         self.__flush('w')
 
     def extract_pics(self):
+        FORBID_CHARS = (':', '`', '?')
+
         pic_filename = self.site + '_' + '_'.join(self.tags) + '.txt'
+
+        for c in FORBID_CHARS:
+            pic_filename = pic_filename.replace(c, '_')
+
         with open(pic_filename, 'w') as pic_file:
             pic_count = int(self.__config['PICS']['pic_count'])
             for i in range(pic_count):

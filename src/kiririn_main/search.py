@@ -16,10 +16,12 @@ BOORU_AWAILABLE = (
     'konachan'
 )
 
+
 def print_sites():
     print('BOORU GRAB AVAILABLE FROM:')
     print('sankaku')
     print('konachan')
+
 
 def search(site, tags, mode=''):
     job = Job()
