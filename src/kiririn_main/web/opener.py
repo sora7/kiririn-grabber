@@ -30,9 +30,8 @@ class URLopen(object):
     __url = None
     
     __pause = None
-    
-    __pause_inc_if = False
-    __pause_inc_factor = 3.5
+
+    __pause_inc_factor = 1.5
     
     __N_attempts = None
     
@@ -63,15 +62,13 @@ class URLopen(object):
             print('connection closed')
         
         self.__page = self.__opener.open(self.__url)
-        print('connected')
+        # print('connected')
 
     def reconnect(self):
         self.connect(self.__url)
     
     def pause_inc(self):
-        if not self.__pause_inc_if:
-            self.__pause_inc_if = True
-            self.__pause.mul(self.__pause_inc_factor)        
+        self.__pause.mul(self.__pause_inc_factor)
 
     def change_ua(self):
         '''

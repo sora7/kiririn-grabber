@@ -11,14 +11,9 @@ from kiririn_main.search import search, cont_search, print_sites, add_posts, BOO
 
 from pprint import pprint
 
-
 def main():
     print('Kiririn Booru Grabber')
     args = parse_args()
-    print('args:')
-    # pprint(args)
-
-    # sys.exit(-1)
 
     if args['continue']:
         cont_search()
@@ -44,11 +39,14 @@ def main():
                 }
                 # pprint(mode)
 
-                # sys.exit(-1)
+                # add list with posts (post URLs)
                 if args['list'] is not False:
                     add_posts(args['list'], args['site'], mode)
+                # check out the tags
                 elif (args['tags'] is None) or (len(args['tags']) == 0):
                     print('NO TAGS!')
+                    sys.exit(-1)
+                # OK, RUN!
                 else:
                     search(args['site'], args['tags'], mode)
 
@@ -108,48 +106,9 @@ def parse_args():
     args = vars(parser.parse_args())
     return args
 
-def test():
-    print('test!')
-    file1='3579391.txt'
-    file2='3527738.txt'
-    with open(file2, encoding='utf-8') as f:
-        txt = f.read()
-
-    # import kiririn_main.parsers.parser as parser
-    # info = parser.parse_post(txt)
-
-    from kiririn_main.parser import BooruParser
-    parser = BooruParser('sankaku')
-    info = parser.parse_post(txt)
-
-    from pprint import pprint
-    pprint(info.has_resized)
-    pprint(info.resized_link)
-    pprint(info.has_original)
-    pprint(info.original_link)
-
-def test_konachan_search():
-    post_file = 'FILE.TXT'
-    from kiririn_main.parser import BooruParser
-    parser = BooruParser('konachan')
-    with open(post_file) as pf:
-        txt = pf.read()
-
-    info = parser.parse_search(txt)
-
-    print('HAS NEXT:', info.has_next)
-    print('NEXT:', info.next)
-    print('HAS POSTS:', info.has_posts)
-    print('POSTS:', info.posts)
 
 
-def test_konachan():
-    post_file = '187397.txt'
-    from kiririn_main.parser import BooruParser
-    parser = BooruParser('konachan')
-    with open(post_file) as pf:
-        txt = pf.read()
-    info = parser.parse_post(txt)
+def test_print_post(info):
     print('HAS ORIG:', info.has_original)
     print('ORIG:', info.original_link)
     print('ORIG SIZE:', info.original_size)
@@ -166,7 +125,7 @@ def test_konachan():
     pprint('tags')
     # pprint(info.tags)
 
-def test_sankaku():
+def test_booru_file():
     post_file = '3579391.txt'
     # post_file = '194838.txt'
     from kiririn_main.parser import BooruParser
@@ -174,49 +133,16 @@ def test_sankaku():
     with open(post_file) as pf:
         txt = pf.read()
     info = parser.parse_post(txt)
-    print('HAS ORIG:', info.has_original)
-    print('ORIG:', info.original_link)
-    print('ORIG SIZE:', info.original_size)
-    # print('ORIG2:', info.original_link2)
-    # print('ORIG SIZE2:', info.original_size2)
-    print('HAS RESIZED:', info.has_resized)
-    print('RESIZED:', info.resized_link)
-    print('RESIZED RES:', info.resized_res)
-    print('RATING:', info.rating)
-    print('ID:', info.post_id)
-    print('POSTED:', info.posted)
-    print('POSTED AGO:', info.posted_ago)
-    pprint('tags')
-    pprint(info.tags)
-
-def sankaku():
-    # print(sys.platform)
-
-    from kiririn_main.search import search
-    from kiririn_main.parsers import parser
-
-    # with open('search.html', encoding='utf-8') as f:
-    #     txt = f.read()
-    # info = parser.parse_search(txt)
-    # pprint(info.posts)
+    test_print_post(info)
 
 
-    with open('file_lol.html', encoding='utf-8') as f:
-        txt = f.read()
-    info = parser.parse_post(txt)
-
-    print()
-    print('has res:', info.has_resized)
-    print('res:', info.resized_link)
-
-    # pprint.pprint(info.next)
-    # pprint.pprint(info.posts)
-
-    # search(sankaku, ['shiramine_rika', 'aoyama_sumika'])
-
+def test_main():
+    search('sankaku', ['shiramine_rika', 'aoyama_sumika', 'winter_clothes'], mode={'original': True, 'resized': True})
 
 if __name__ == '__main__':
     main()
+
+    # test_main()
     # test_konachan()
     # test_konachan_search()
     # test()

@@ -4,6 +4,7 @@ Created on 27.01.2015
 
 import configparser
 import datetime
+import time
 import os
 import sys
 
@@ -33,6 +34,7 @@ class Job(object):
             # create new job file
             self.new_job()
 
+    # start new job (delete old one)
     def new_job(self):
         self.clear()
         self.__default_config()
@@ -86,7 +88,7 @@ class Job(object):
 
     @site.setter
     def site(self, value):
-        print('SITE SETTER')
+        # print('SITE SETTER')
         self.__config['GENERAL']['site'] = value
         self.__upd_time()
         self.__flush('w')
@@ -112,11 +114,11 @@ class Job(object):
 
         if mode['original']:
             self.__config['GENERAL']['load_original'] = 'true'
-            print('LOAD ORIGINAL')
+            # print('LOAD ORIGINAL')
 
         if mode['resized']:
             self.__config['GENERAL']['load_resized'] = 'true'
-            print('LOAD RESIZED')
+            # print('LOAD RESIZED')
 
         self.__upd_time()
         self.__flush('w')
@@ -252,7 +254,8 @@ class Job(object):
 
     # extract pic urls from PICS list into a txt file
     def extract_pics(self):
-        pic_filename = self.site + '_' + '_'.join(self.tags) + '.txt'
+        timestamp = int(time.time())
+        pic_filename = '%s_%s_%s_PICS.txt'%(self.site ,'_'.join(self.tags), timestamp)
 
         pic_filename = self.clear_filename(pic_filename)
 
@@ -261,3 +264,22 @@ class Job(object):
             for i in range(pic_count):
                 pic = self.__config['PICS'][str(i)] + os.linesep
                 pic_file.write(pic)
+
+    # extract posts urls from POSTS list into a txt file
+    def extract_posts(self):
+        timestamp = int(time.time())
+        post_filename = '%s_%s_%s_POSTS.txt'%(self.site ,'_'.join(self.tags), timestamp)
+
+        post_filename = self.clear_filename(post_filename)
+
+        with open(post_filename, 'w') as post_file:
+            post_count = int(self.__config['POSTS']['post_count'])
+            for i in range(post_count):
+                post = self.__config['POSTS'][str(i)] + os.linesep
+                post_file.write(post)
+
+    # saving job.ini file
+    def extract_job(self):
+        timestamp = int(time.time())
+        job_filename = '%s_%s_%s_JOB.txt'%(self.site ,'_'.join(self.tags), timestamp)
+        os.rename(self.__filepath, job_filename)

@@ -4,6 +4,8 @@ Created on 13.12.2014
 
 from pprint import pprint
 
+import sys
+
 from kiririn_main.web.opener import URLopen
 from kiririn_main.job import Job
 
@@ -40,13 +42,16 @@ def search(site, tags, mode=''):
 
 def cont_search():
     job = Job()
-    # if job.next == '':
-    #     print('Nothing to continue!')
-    #     job.clear()
-    #     sys.exit(-1)
-        # TODO: try make next_url form query_url and start
-
     parser = BooruParser(job.site)
+
+    if job.next == '':
+        if job.site == '' or job.tags == []:
+            print('Nothing to continue!')
+            job.clear()
+            sys.exit(-1)
+
+        url = parser.query_url(job.tags)
+        job.next = url
 
     if not job.search_done:
         url = job.next
@@ -68,7 +73,7 @@ def add_posts(posts_file, site, mode=''):
 
 
 def find_posts(parser, url):
-    pprint('FIND POSTS')
+    # pprint('FIND POSTS')
     opener = URLopen()
     opener.connect(url)
     html_text = opener.get_html()
@@ -79,7 +84,7 @@ def find_posts(parser, url):
 
     if search_info.has_posts:
         posts = search_info.posts
-        pprint(posts)
+        # pprint(posts)
         job.write_posts(posts)
 
     if search_info.has_next:
@@ -114,6 +119,8 @@ def process_posts(parser):
         job.last_post = last_post
 
     job.extract_pics()
+    job.extract_posts()
+    job.extract_job()
 
 
 
