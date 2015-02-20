@@ -1,12 +1,12 @@
-# kiririn-grabber
+# Kiririn-grabber
 
-Picture grabber for sites on Danbooru engine and other
+Picture grabber for sites on Danbooru engine and other (see list below).
 
 This is the very first "working" version. It still can't download pictures
 (but create a .txt file with the direct links to pictures). You can use your
 favorite download manager or even DownThemAll Firefox Extension (recommended).
 
-# USAGE
+## USAGE
 
     kiririn.py -s sankaku -t tag1 tag2 more_tag
 
@@ -23,9 +23,9 @@ and create file:
 
 with direct links to pics.
 
-#KEYS
+##KEYS
 
-##Main
+###Main
 
     -s, --site
 Site where you want to find (and load) pics. If argument doesn't given it
@@ -34,9 +34,7 @@ print list of booru grab awailable.
     -t, --tags
 List of tags you want to load. Note that this must be the LAST key.
 
-##Optional
-Optional
--------
+###Optional
 
     -c, --continue
 Continue processing the job. You can break/continue any time (search or posts
@@ -52,21 +50,21 @@ Load resized pics only (if any). By default, grabber load almost all pics.
     -l, --list-add
 Append posts urls from .txt file and start process.
 
-# OTHER
+## OTHER
 
-##Supported Booru List:
+###Supported Booru List:
 
 
     SankakuChannel
     Konachan
 
-##Booru List:
+###Booru List:
 
 
 Approximate list of booru kiririn can grab pics from:
 (it's only declared functionality, not implemented yet)
 
-###Danbooru-like:
+####Danbooru-like:
 
 
     SankakuChannel
@@ -79,12 +77,12 @@ Approximate list of booru kiririn can grab pics from:
     vocalo.booru.org
     Zerochan (some troubles with JS)
 
-###Non-danbooru:
+####Non-danbooru:
 
     shimmie.4chanhouse.org
     shimmie.katawa-shoujo.com
 
-# REQUIREMENTS
+## REQUIREMENTS
 
 There's no special platform or system requirements, but python3. Tested on
 windows, possibly will work on linux.
