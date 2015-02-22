@@ -64,5 +64,6 @@ src/*.txt
 .idea/*
 
 src/*.html
+src/pics/*
 *.html
 *.ini

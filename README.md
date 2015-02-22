@@ -8,6 +8,9 @@ favorite download manager or even DownThemAll Firefox Extension (recommended).
 
 ## USAGE
 
+
+Xaple usage:
+
     kiririn.py -s sankaku -t tag1 tag2 more_tag
 
 Good for POSIX-linux, but on Windows there are some troubles with redirecting
@@ -53,7 +56,6 @@ Append posts urls from .txt file and start process.
 ## OTHER
 
 ###Supported Booru List:
-
 
     SankakuChannel
     Konachan

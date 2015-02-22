@@ -6,11 +6,14 @@ import configparser
 import datetime
 import time
 import os
+import random
 import sys
 
 CONFIG_ENCODING = 'ascii'
 
 class Job(object):
+    PICS_DIR = 'pics'
+
     __instance = None
     __config = None
 
@@ -19,7 +22,6 @@ class Job(object):
         if not cls.__instance:
             cls.__instance = super(Job, cls).__new__(cls, *args, **kwargs)
         return cls.__instance
-
 
     def __init__(self):
         self.__filepath = 'job.ini'
@@ -33,6 +35,21 @@ class Job(object):
         else:
             # create new job file
             self.new_job()
+        self.check_dirs()
+
+    def check_dirs(self):
+
+        if os.path.exists(self.PICS_DIR):
+            if os.path.isdir(self.PICS_DIR):
+                pass
+            else:
+                # 'pics' is a file
+                newname = self.PICS_DIR
+                while (os.path.exists(newname)):
+                    newname = newname + str(random.randint(1, 9))
+                os.rename(self.PICS_DIR, newname)
+        else:
+            os.mkdir(self.PICS_DIR)
 
     # start new job (delete old one)
     def new_job(self):
@@ -256,8 +273,9 @@ class Job(object):
     def extract_pics(self):
         timestamp = int(time.time())
         pic_filename = '%s_%s_%s_PICS.txt'%(self.site ,'_'.join(self.tags), timestamp)
-
         pic_filename = self.clear_filename(pic_filename)
+
+        pic_filename = os.path.join(self.PICS_DIR, pic_filename)
 
         with open(pic_filename, 'w') as pic_file:
             pic_count = int(self.__config['PICS']['pic_count'])
@@ -269,8 +287,9 @@ class Job(object):
     def extract_posts(self):
         timestamp = int(time.time())
         post_filename = '%s_%s_%s_POSTS.txt'%(self.site ,'_'.join(self.tags), timestamp)
-
         post_filename = self.clear_filename(post_filename)
+
+        post_filename = os.path.join(self.PICS_DIR, post_filename)
 
         with open(post_filename, 'w') as post_file:
             post_count = int(self.__config['POSTS']['post_count'])
@@ -282,4 +301,8 @@ class Job(object):
     def extract_job(self):
         timestamp = int(time.time())
         job_filename = '%s_%s_%s_JOB.txt'%(self.site ,'_'.join(self.tags), timestamp)
+        job_filename = self.clear_filename(job_filename)
+
+        job_filename = os.path.join(self.PICS_DIR, job_filename)
+
         os.rename(self.__filepath, job_filename)
