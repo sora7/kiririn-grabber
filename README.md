@@ -90,14 +90,13 @@ Booru                                             |Original|Resized|Tag limit|Co
 [Gelbooru](http://gelbooru.com/)                  |yes     |yes    |inf      |fucking ads
 [Safebooru](http://safebooru.org/)                |yes     |yes    |inf      |
 [Yande.re](https://yande.re)                      |yes*    |yes    |6        |
-[Konachan]                                        |yes*    |yes    |6        |
-[Zerochan]                                        |yes     |yes    |inf      |some troubles with JS
+[Konachan](http://konachan.com/)                  |yes*    |yes    |6        |
+[Zerochan](http://www.zerochan.net/)              |yes     |yes    |inf      |some troubles with JS
 [Vocaloid and Utau](http://vocalo.booru.org)      |yes     |no     |inf      |
-Shimmie
-[4chanhouse.org]                                  |        |       |         |     
+[4chanhouse.org](http://shimmie.4chanhouse.org/)  |        |       |         |     
 [katawa-shoujo](http://shimmie.katawa-shoujo.com/)|yes     |no     |inf      |
 
-* 2 original pictures in PNG and JPG
+*2 original pictures in PNG and JPG
 
 ## REQUIREMENTS
 
