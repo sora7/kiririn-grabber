@@ -1,6 +1,6 @@
 # Kiririn-grabber
 
-Picture grabber for sites on Danbooru engine and other (see list below).
+Picture grabber for sites on Danbooru engine and other (see [list](#booru_supported) below).
 
 This is the very first "working" version. It still can't download pictures
 (but create a .txt file with the direct links to pictures). You can use your
@@ -44,7 +44,8 @@ print [list](#booru_supported) of supported booru.
 
     -t, --tags
 List of tags you want to load. Note that this must be the **last** key 
-(everything after -t or --tags grabber will understand as tags).
+(everything after -t or --tags grabber will understand as tags). Every booru
+has restrictions in maximum tag count (for anonymous mode), so grabber  
 
 ###Optional
 
@@ -71,32 +72,32 @@ Example:
 
 ###Supported Booru List: <a id="booru_supported"></a>
 
-    Booru   |   Alias| Original | Resized | Tags max. 
-    --------|---------|--------|-------|--------
-    [SankakuChannel](https://chan.sankakucomplex.com) | sankaku | yes | yes | 4  
-    [Konachan.com](https://konachan.com) | konachan | yes | yes | 6
+Booru                                             |Alias   |Original|Resized|Tag limit 
+--------------------------------------------------|--------|--------|-------|----------
+[SankakuChannel](https://chan.sankakucomplex.com) |sankaku |yes     |yes    |4  
+[Konachan.com](https://konachan.com)              |konachan|yes     |yes    |6
 
 ###Booru List:
 
 Approximate list of booru kiririn can grab pics from
 (it's only declared functionality, not implemented yet):
 
-####Danbooru-like:
+Booru                                             |Original|Resized|Tag limit|Comment 
+--------------------------------------------------|--------|-------|---------|--------
+[SankakuChannel](https://chan.sankakucomplex.com) |yes     |yes    |4        |
+[SankakuIdol](https://idol.sankakucomplex.com)    |yes     |yes    |4        |yes, 3DPD
+[Danbooru](https://danbooru.donmai.us/)           |yes     |yes    |2        |
+[Gelbooru](http://gelbooru.com/)                  |yes     |yes    |inf      |fucking ads
+[Safebooru](http://safebooru.org/)                |yes     |yes    |inf      |
+[Yande.re](https://yande.re)                      |yes*    |yes    |6        |
+[Konachan]                                        |yes*    |yes    |6        |
+[Zerochan]                                        |yes     |yes    |inf      |some troubles with JS
+[Vocaloid and Utau](http://vocalo.booru.org)      |yes     |no     |inf      |
+Shimmie
+[4chanhouse.org]                                  |        |       |         |     
+[katawa-shoujo](http://shimmie.katawa-shoujo.com/)|yes     |no     |inf      |
 
-* SankakuChannel
-* idol.sankakucomplex.com (yes, 3DPD)
-* Danbooru
-* Gelbooru (fucking ads)
-* Safebooru
-* Yande.re
-* Konachan
-* vocalo.booru.org
-* Zerochan (some troubles with JS)
-
-####Non-danbooru:
-
-* shimmie.4chanhouse.org
-* shimmie.katawa-shoujo.com
+* 2 original pictures in PNG and JPG
 
 ## REQUIREMENTS
 
