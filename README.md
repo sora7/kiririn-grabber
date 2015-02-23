@@ -13,7 +13,8 @@ type:
 
     kiririn.py -s %booru_name% -t %tag1% %tag2%
 
-where %booru_name% - 
+where %booru_name% - alias for booru (see [list](###Supported Booru List))
+%tag1% %tag2% - tags you want to load.
 
 Xaple usage:
 
@@ -71,7 +72,7 @@ Example:
     Booru   |   Alias
     --------|---------
     [SankakuChannel](https://chan.sankakucomplex.com)  |   sankaku
-    
+    --------|---------
     [Konachan.com](https://konachan.com)    |   konachan
 
 ###Booru List:
@@ -93,8 +94,8 @@ Approximate list of booru kiririn can grab pics from
 
 ####Non-danbooru:
 
-    * shimmie.4chanhouse.org
-    * shimmie.katawa-shoujo.com
+* shimmie.4chanhouse.org
+* shimmie.katawa-shoujo.com
 
 ## REQUIREMENTS
 
