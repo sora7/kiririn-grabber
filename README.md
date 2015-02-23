@@ -93,7 +93,7 @@ Booru                                             |Original|Resized|Tag limit|Co
 [Konachan](http://konachan.com/)                  |yes*    |yes    |6        |
 [Zerochan](http://www.zerochan.net/)              |yes     |yes    |inf      |some troubles with JS
 [Vocaloid and Utau](http://vocalo.booru.org)      |yes     |no     |inf      |
-[4chanhouse.org](http://shimmie.4chanhouse.org/)  |        |       |         |     
+[4chanhouse.org](http://shimmie.4chanhouse.org/)  |yes     |no     |inf      |     
 [katawa-shoujo](http://shimmie.katawa-shoujo.com/)|yes     |no     |inf      |
 
 *2 original pictures in PNG and JPG
