@@ -52,7 +52,8 @@ class URLopen(object):
     def wait(self):
         self.__pause.wait()
         
-    def connect(self, url=None): 
+    def connect(self, url=None):
+        print('URL:', url)
         self.__url = url
         try:
             self.__page.close()

@@ -5,6 +5,7 @@ import configparser
 from kiririn_main.containers import SearchInfo
 from kiririn_main.containers import PostInfo
 
+
 class BooruParser_(object):
 
     def __init__(self, booru):
@@ -14,7 +15,6 @@ class BooruParser_(object):
         elif booru == 'konachan':
             import kiririn_main.parsers.konachan as booru_module
 
-        # self.data = booru_data
         self.import_booru_data(booru_module)
         self.compile_regex()
 

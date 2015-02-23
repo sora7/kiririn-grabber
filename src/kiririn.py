@@ -8,6 +8,7 @@ import sys
 import argparse
 import kiririn_main.search
 from kiririn_main.search import search, cont_search, print_sites, add_posts, BOORU_AWAILABLE
+from kiririn_main.grabber import Grabber
 
 from pprint import pprint
 
@@ -50,6 +51,46 @@ def main():
                 else:
                     search(args['site'], args['tags'], mode)
 
+def main2():
+    print('Kiririn Booru Grabber')
+    args = parse_args()
+
+    grabber = Grabber()
+
+    if args['continue']:
+        grabber.cont_search()
+    else:
+        if args['site'] is None:
+            # -s --site without args:
+            # print supported booru
+            print_sites()
+        else:
+            if (args['site']) not in BOORU_AWAILABLE:
+                print('Sorry, this site not supported yet...')
+            else:
+                # if mode don't touched we gonna load all pics we find))
+                if (not args['resized']) and (not args['original']):
+                    original, resized = True, True
+                else:
+                    resized = args['resized']
+                    original = args['original']
+
+                mode = {
+                    'original': original,
+                    'resized': resized
+                }
+                # pprint(mode)
+
+                # add list with posts (post URLs)
+                if args['list'] is not False:
+                    grabber.add_posts(args['list'], args['site'], mode)
+                # check out the tags
+                elif (args['tags'] is None) or (len(args['tags']) == 0):
+                    print('NO TAGS!')
+                    sys.exit(-1)
+                # OK, RUN!
+                else:
+                    grabber.search(args['site'], args['tags'], mode)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Kiririn Booru Grabber')
@@ -140,7 +181,7 @@ def test_main():
     search('sankaku', ['shiramine_rika', 'aoyama_sumika', 'winter_clothes'], mode={'original': True, 'resized': True})
 
 if __name__ == '__main__':
-    main()
+    main2()
 
     # test_main()
     # test_konachan()

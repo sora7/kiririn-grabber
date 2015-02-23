@@ -32,7 +32,7 @@ and create file:
 
      "sankaku_tag1_tag2_more_tag_PICS.txt"
 
-with direct links to pics.
+with direct links to pics. It will be placed in "pics" folder.
 
 ##KEYS
 
@@ -40,7 +40,7 @@ with direct links to pics.
 
     -s, --site
 Site where you want to find (and load) pics. If argument doesn't given it
-print list of supported booru.
+print [list](#booru_supported) of supported booru.
 
     -t, --tags
 List of tags you want to load. Note that this must be the **last** key 
@@ -64,7 +64,8 @@ Load resized pics only (if any). By default, grabber load almost all pics.
     -l, --list-add
 Append posts urls from .txt file and start process.
 Example:
-    kiririn.py -s sankaku -l posts_sankaku.txt
+
+    kiririn.py -s konachan -l posts_konachan.txt
 
 ## OTHER
 

@@ -2,6 +2,8 @@
 Created on 27.01.2015
 '''
 
+from pprint import pprint
+
 import configparser
 import datetime
 import time
@@ -38,7 +40,6 @@ class Job(object):
         self.check_dirs()
 
     def check_dirs(self):
-
         if os.path.exists(self.PICS_DIR):
             if os.path.isdir(self.PICS_DIR):
                 pass
@@ -219,8 +220,20 @@ class Job(object):
 
     # append post urls from file to POST list
     def add_posts(self, posts_file):
+        URL_MIN_LEN = 3
+        posts = []
         with open(posts_file, 'r') as posts_fh:
-            posts = posts_fh.readlines()
+            for line in posts_fh.readlines():
+                line = line.rstrip('\n')
+                # skip empty lines (or with '\n' character)
+                if len(line) > URL_MIN_LEN:
+                    posts.append(line)
+
+        # pprint(posts)
+        # for p in posts:
+        #     print(len(p), p)
+        # ####
+        # sys.exit(-1)
         self.write_posts(posts)
 
     # add pic url to pic list
