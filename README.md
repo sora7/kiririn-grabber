@@ -71,10 +71,10 @@ Example:
 
 ###Supported Booru List: <a id="booru_supported"></a>
 
-    Booru   |   Alias
-    --------|---------
-    [SankakuChannel](https://chan.sankakucomplex.com) | sankaku
-    [Konachan.com](https://konachan.com) | konachan
+    Booru   |   Alias| Original | Resized | Tags max. 
+    --------|---------|--------|-------|--------
+    [SankakuChannel](https://chan.sankakucomplex.com) | sankaku | yes | yes | 4  
+    [Konachan.com](https://konachan.com) | konachan | yes | yes | 6
 
 ###Booru List:
 
