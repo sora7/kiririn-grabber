@@ -17,7 +17,7 @@ where:
 * %booru_name% - alias for booru (see [list](#booru_supported))
 * %tag1% %tag2% - tags you want to load.
 
-Xaple usage:
+Xample usage:
 
     kiririn.py -s sankaku -t tag1 tag2 more_tag
 
