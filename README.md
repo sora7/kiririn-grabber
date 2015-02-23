@@ -69,7 +69,7 @@ Example:
 ###Supported Booru List:
 
     Booru   |   Alias
-    -----------------
+    --------|---------
     [SankakuChannel](https://chan.sankakucomplex.com)  |   sankaku
     
     [Konachan.com](https://konachan.com)    |   konachan
@@ -81,21 +81,20 @@ Approximate list of booru kiririn can grab pics from
 
 ####Danbooru-like:
 
-
-    *SankakuChannel
-    *idol.sankakucomplex.com (yes, 3DPD)
-    *Danbooru
-    *Gelbooru (fucking ads)
-    *Safebooru
-    *Yande.re
-    *Konachan
-    *vocalo.booru.org
-    *Zerochan (some troubles with JS)
+* SankakuChannel
+* idol.sankakucomplex.com (yes, 3DPD)
+* Danbooru
+* Gelbooru (fucking ads)
+* Safebooru
+* Yande.re
+* Konachan
+* vocalo.booru.org
+* Zerochan (some troubles with JS)
 
 ####Non-danbooru:
 
-    *shimmie.4chanhouse.org
-    *shimmie.katawa-shoujo.com
+    * shimmie.4chanhouse.org
+    * shimmie.katawa-shoujo.com
 
 ## REQUIREMENTS
 
