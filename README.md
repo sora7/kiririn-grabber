@@ -13,8 +13,9 @@ type:
 
     kiririn.py -s %booru_name% -t %tag1% %tag2%
 
-where %booru_name% - alias for booru (see [list](###Supported Booru List))
-%tag1% %tag2% - tags you want to load.
+where: 
+* %booru_name% - alias for booru (see [list](#booru_supported))
+* %tag1% %tag2% - tags you want to load.
 
 Xaple usage:
 
@@ -67,13 +68,12 @@ Example:
 
 ## OTHER
 
-###Supported Booru List:
+###Supported Booru List: <a id="booru_supported"></a>
 
     Booru   |   Alias
     --------|---------
-    [SankakuChannel](https://chan.sankakucomplex.com)  |   sankaku
-    --------|---------
-    [Konachan.com](https://konachan.com)    |   konachan
+    [SankakuChannel](https://chan.sankakucomplex.com) | sankaku
+    [Konachan.com](https://konachan.com) | konachan
 
 ###Booru List:
 
