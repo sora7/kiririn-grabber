@@ -31,7 +31,7 @@ class URLopen(object):
     
     __pause = None
 
-    __pause_inc_factor = 1.5
+    __pause_inc_factor = 1.7
     
     __N_attempts = None
     
@@ -40,7 +40,7 @@ class URLopen(object):
 #         self.__opener = AnonymousClass(pythonfuckers)
         self.__pause = Pause(2, 4, 0.02, verbose=True)
         
-        self.__N_attempts = 10
+        self.__N_attempts = 20
 #         FancyURLopener.__init__(self)
 
     def __del__(self):

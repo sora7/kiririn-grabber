@@ -45,7 +45,8 @@ print [list](#booru_supported) of supported booru.
     -t, --tags
 List of tags you want to load. Note that this must be the **last** key 
 (everything after -t or --tags grabber will understand as tags). Every booru
-has restrictions in maximum tag count (for anonymous mode), so grabber  
+has restrictions in maximum tag count (for anonymous mode), overlimit tags 
+will be discarded.
 
 ###Optional
 
@@ -97,6 +98,12 @@ Booru                                             |Original|Resized|Tag limit|Co
 [katawa-shoujo](http://shimmie.katawa-shoujo.com/)|yes     |no     |inf      |
 
 *2 original pictures in PNG and JPG
+
+###Future features:
+
+* pool load
+* graphical user interface (using Tk or ttk)
+
 
 ## REQUIREMENTS
 
