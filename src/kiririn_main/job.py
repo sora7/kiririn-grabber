@@ -293,7 +293,7 @@ class Job(object):
         with open(pic_filename, 'w') as pic_file:
             pic_count = int(self.__config['PICS']['pic_count'])
             for i in range(pic_count):
-                pic = self.__config['PICS'][str(i)] + os.linesep
+                pic = '%s\n'%(self.__config['PICS'][str(i)]) # + '\n'#os.linesep
                 pic_file.write(pic)
 
     # extract posts urls from POSTS list into a txt file
@@ -307,7 +307,7 @@ class Job(object):
         with open(post_filename, 'w') as post_file:
             post_count = int(self.__config['POSTS']['post_count'])
             for i in range(post_count):
-                post = self.__config['POSTS'][str(i)] + os.linesep
+                post = self.__config['POSTS'][str(i)] + '\n' #os.linesep
                 post_file.write(post)
 
     # saving job.ini file

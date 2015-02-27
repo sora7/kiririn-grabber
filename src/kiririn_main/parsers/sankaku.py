@@ -15,9 +15,12 @@ TAG_MAX = 4
 # SEARCH
 # if we want to del smtng before grab posts ('popular' section on sankakuclannel for example)
 DEL_TEXT = True
-DEL_REGEX = '<div class=popular-preview-post>(.+?)</div>'
+DEL_REGEX = '<div class=popular-preview-post>(.+?)</div>.</div>.</div>'
 # *nesessary
-NEXT_REGEX = '<div next-page-url="(/[?]next=.+)">'
+
+#<div class=pagination next-page-url="/?next=3851953&amp;tags=user%3AYunGoon&amp;page=2">
+
+NEXT_REGEX = '<div next-page-url="(/[?](?:next=\d*?(?:&|&amp;))tags=.*?(?:&|&amp;)page=\d*?)">'
 NEXT_PREFIX = 'https://chan.sankakucomplex.com'
 # *nesessary
 POST_REGEX = 'href="(/post/show/\d+)"'

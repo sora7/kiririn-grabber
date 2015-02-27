@@ -68,6 +68,8 @@ class Grabber(object):
         opener = URLopen()
         opener.connect(url)
         html_text = opener.get_html()
+        with open('lol.html', 'w', encoding='utf-8') as f:
+            f.write(html_text)
 
         # job = Job()
 
@@ -77,6 +79,9 @@ class Grabber(object):
             posts = search_info.posts
             # pprint(posts)
             self.job.write_posts(posts)
+
+        #print('HAS NEXT:', search_info.has_next)
+        #sys.exit(-1)
 
         if search_info.has_next:
             next_url = search_info.next

@@ -2,6 +2,9 @@ import re
 import os
 import configparser
 
+import sys
+from pprint import pprint
+
 from kiririn_main.containers import SearchInfo
 from kiririn_main.containers import PostInfo
 
@@ -112,11 +115,18 @@ class BooruParser_(object):
             # i'ts not my fault that's my posts aren't popular
             # lets delete the popular section
             if self.data['DEL_REGEX'].search(text):
+                del_text = self.data['DEL_REGEX'].findall(text)[0]
+
+                #pprint(del_text)
+                #sys.exit(-1)
+
                 text = re.sub(self.data['DEL_REGEX'], '###UNPOPULAR###', text)
 
         # find the next page url (if any)
         if self.data['NEXT_REGEX'].search(text):
             next_page = self.data['NEXT_REGEX'].findall(text)[0]
+
+            #print('NEXT:', next_page)
 
             answer.has_next = True
             answer.next = self.data['NEXT_PREFIX'] + next_page
