@@ -65,6 +65,7 @@ class Pause(object):
         t = random.choice(self.__wait_time)
         if self.__verbose:
             print('pause for %f sec.'%(t))
+            # pass
         time.sleep(t)
         
     def mul(self, factor):

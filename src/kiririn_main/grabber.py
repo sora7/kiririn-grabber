@@ -64,24 +64,15 @@ class Grabber(object):
         self.process_posts()
 
     def find_posts(self, url):
-        # pprint('FIND POSTS')
         opener = URLopen()
         opener.connect(url)
         html_text = opener.get_html()
-        with open('lol.html', 'w', encoding='utf-8') as f:
-            f.write(html_text)
-
-        # job = Job()
 
         search_info = self.parser.parse_search(html_text)
 
         if search_info.has_posts:
             posts = search_info.posts
-            # pprint(posts)
             self.job.write_posts(posts)
-
-        #print('HAS NEXT:', search_info.has_next)
-        #sys.exit(-1)
 
         if search_info.has_next:
             next_url = search_info.next
@@ -101,9 +92,6 @@ class Grabber(object):
         while last_post < count:
             percent = round(float(last_post)/count*100, 4)
             print('Processing post %s of %s [%s %s'%(last_post+1, count, percent, '%]'))
-
-            # pprint(posts)
-            # sys.exit(-1)
 
             post_url = posts[last_post]
 

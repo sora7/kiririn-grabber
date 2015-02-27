@@ -17,10 +17,7 @@ TAG_MAX = 4
 DEL_TEXT = True
 DEL_REGEX = '<div class=popular-preview-post>(.+?)</div>.</div>.</div>'
 # *nesessary
-
-#<div class=pagination next-page-url="/?next=3851953&amp;tags=user%3AYunGoon&amp;page=2">
-
-NEXT_REGEX = '<div next-page-url="(/[?](?:next=\d*?(?:&|&amp;))tags=.*?(?:&|&amp;)page=\d*?)">'
+NEXT_REGEX = '<div next-page-url="(/[?](?:next=\d*?(?:&|&amp;)){0,1}tags=.*?(?:&|&amp;)page=\d*?)">'
 NEXT_PREFIX = 'https://chan.sankakucomplex.com'
 # *nesessary
 POST_REGEX = 'href="(/post/show/\d+)"'

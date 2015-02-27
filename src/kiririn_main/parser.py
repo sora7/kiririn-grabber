@@ -73,7 +73,6 @@ class BooruParser_(object):
         if self.data['DEL_TEXT']:
             self.data['DEL_REGEX'] = re.compile(self.data['DEL_REGEX'], re.DOTALL)
 
-        # print(self.data['NEXT_REGEX'])
         self.data['NEXT_REGEX'] = re.compile(self.data['NEXT_REGEX'])
         self.data['POST_REGEX'] = re.compile(self.data['POST_REGEX'])
 
@@ -115,18 +114,11 @@ class BooruParser_(object):
             # i'ts not my fault that's my posts aren't popular
             # lets delete the popular section
             if self.data['DEL_REGEX'].search(text):
-                del_text = self.data['DEL_REGEX'].findall(text)[0]
-
-                #pprint(del_text)
-                #sys.exit(-1)
-
                 text = re.sub(self.data['DEL_REGEX'], '###UNPOPULAR###', text)
 
         # find the next page url (if any)
         if self.data['NEXT_REGEX'].search(text):
             next_page = self.data['NEXT_REGEX'].findall(text)[0]
-
-            #print('NEXT:', next_page)
 
             answer.has_next = True
             answer.next = self.data['NEXT_PREFIX'] + next_page

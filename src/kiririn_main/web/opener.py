@@ -53,7 +53,7 @@ class URLopen(object):
         self.__pause.wait()
         
     def connect(self, url=None):
-        print('URL:', url)
+        #print('URL:', url)
         self.__url = url
         try:
             self.__page.close()
@@ -97,8 +97,8 @@ class URLopen(object):
                 print('retries left: %d'%(self.__N_attempts-i))
 #                 sys.exit()
             else:
-                print(self.__url)
-                msg = 'OK %d st retry SUCCESS'%i
+                print('URL:', self.__url)
+                msg = 'OK %d st retry SUCCESS' % i
                 if (i > 1) and (i < self.__N_attempts / 2.0):
                     msg = color_text(msg, 'green')
                 if (i >= self.__N_attempts / 2.0):

@@ -293,7 +293,7 @@ class Job(object):
         with open(pic_filename, 'w') as pic_file:
             pic_count = int(self.__config['PICS']['pic_count'])
             for i in range(pic_count):
-                pic = '%s\n'%(self.__config['PICS'][str(i)]) # + '\n'#os.linesep
+                pic = '%s\n' % (self.__config['PICS'][str(i)]) # + '\n'#os.linesep
                 pic_file.write(pic)
 
     # extract posts urls from POSTS list into a txt file
