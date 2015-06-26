@@ -5,10 +5,10 @@ Created on 13.12.2014
 from urllib.request import FancyURLopener
 import random 
 
-from kiririn_main.web.ua import USER_AGENTS
+from grabber.web.ua import USER_AGENTS
 
-from kiririn_main.main import Pause
-from kiririn_main.main import color_text
+from grabber.main import Pause
+from grabber.main import color_text
 
 
 def get_ua():

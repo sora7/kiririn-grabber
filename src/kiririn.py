@@ -1,55 +1,12 @@
 #!/usr/bin/env python3
 
-'''
-Created on 13.12.2014
-'''
-
 import sys
 import argparse
-import kiririn_main.search
-from kiririn_main.search import search, cont_search, print_sites, add_posts, BOORU_AWAILABLE
-from kiririn_main.grabber import Grabber
-
 from pprint import pprint
 
-def main():
-    print('Kiririn Booru Grabber')
-    args = parse_args()
+from grabber.search import BOORU_AWAILABLE, print_sites
+from grabber.grabber import Grabber
 
-    if args['continue']:
-        cont_search()
-    else:
-        if args['site'] is None:
-            # -s --site without args:
-            # print supported booru
-            print_sites()
-        else:
-            if (args['site']) not in BOORU_AWAILABLE:
-                print('Sorry, this site not supported yet...')
-            else:
-                # if mode don't touched we gonna load all pics we find))
-                if (not args['resized']) and (not args['original']):
-                    original, resized = True, True
-                else:
-                    resized = args['resized']
-                    original = args['original']
-
-                mode = {
-                    'original': original,
-                    'resized': resized
-                }
-                # pprint(mode)
-
-                # add list with posts (post URLs)
-                if args['list'] is not False:
-                    add_posts(args['list'], args['site'], mode)
-                # check out the tags
-                elif (args['tags'] is None) or (len(args['tags']) == 0):
-                    print('NO TAGS!')
-                    sys.exit(-1)
-                # OK, RUN!
-                else:
-                    search(args['site'], args['tags'], mode)
 
 def main2():
     print('Kiririn Booru Grabber')
@@ -166,26 +123,5 @@ def test_print_post(info):
     pprint('tags')
     # pprint(info.tags)
 
-def test_booru_file():
-    post_file = '3579391.txt'
-    # post_file = '194838.txt'
-    from kiririn_main.parser import BooruParser
-    parser = BooruParser('sankaku')
-    with open(post_file) as pf:
-        txt = pf.read()
-    info = parser.parse_post(txt)
-    test_print_post(info)
-
-
-def test_main():
-    search('sankaku', ['shiramine_rika', 'aoyama_sumika', 'winter_clothes'], mode={'original': True, 'resized': True})
-
 if __name__ == '__main__':
     main2()
-
-    # test_main()
-    # test_konachan()
-    # test_konachan_search()
-    # test()
-    # sankaku()
-    # test_sankaku()

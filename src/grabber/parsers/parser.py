@@ -2,10 +2,10 @@ import re
 import os
 import configparser
 
-from kiririn_main.containers import SearchInfo
-from kiririn_main.containers import PostInfo
+from grabber.containers import SearchInfo
+from grabber.containers import PostInfo
 
-from kiririn_main.parsers.sankaku import *
+from grabber.parsers.sankaku import *
 
 #OLD PARSER
 

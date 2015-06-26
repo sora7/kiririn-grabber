@@ -6,18 +6,14 @@ from pprint import pprint
 
 import sys
 
-from kiririn_main.web.opener import URLopen
-from kiririn_main.job import Job
-
-# import kiririn_main.parsers.parser as parser
-
-from kiririn_main.parser import BooruParser
+from grabber.web.opener import URLopen
+from grabber.job import Job
+from grabber.parser import BooruParser
 
 BOORU_AWAILABLE = (
     'sankaku',
     'konachan'
 )
-
 
 def print_sites():
     print('BOORU GRAB AVAILABLE FROM:')

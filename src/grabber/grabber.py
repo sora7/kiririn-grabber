@@ -1,8 +1,8 @@
 import sys
 
-from kiririn_main.job import Job
-from kiririn_main.parser import BooruParser
-from kiririn_main.web.opener import URLopen
+from grabber.job import Job
+from grabber.parser import BooruParser
+from grabber.web.opener import URLopen
 
 from pprint import pprint
 

@@ -60,6 +60,7 @@ target/
 src/*.txt
 *.txt
 
+# Pycharm
 .idea
 .idea/*
 

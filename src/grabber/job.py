@@ -9,9 +9,10 @@ import datetime
 import time
 import os
 import random
-import sys
+# import sys
 
 CONFIG_ENCODING = 'ascii'
+
 
 class Job(object):
     PICS_DIR = 'pics'

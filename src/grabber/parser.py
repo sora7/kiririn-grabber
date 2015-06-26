@@ -5,18 +5,17 @@ import configparser
 import sys
 from pprint import pprint
 
-from kiririn_main.containers import SearchInfo
-from kiririn_main.containers import PostInfo
+from grabber.containers import SearchInfo, PostInfo
 
 
 class BooruParser_(object):
 
     def __init__(self, booru):
         if booru == 'sankaku':
-            import kiririn_main.parsers.sankaku as booru_module
+            import grabber.parsers.sankaku as booru_module
             # from kiririn_main.parsers.sankaku import booru_data
         elif booru == 'konachan':
-            import kiririn_main.parsers.konachan as booru_module
+            import grabber.parsers.konachan as booru_module
 
         self.import_booru_data(booru_module)
         self.compile_regex()
