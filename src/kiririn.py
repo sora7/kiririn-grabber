@@ -83,11 +83,11 @@ def parse_args():
                         type=bool
                         )
 
-    parser.add_argument('-p', '--pool',
-                        help='Pool you want to load',
-                        default=False,
-                        required=False
-                        )
+    # parser.add_argument('-p', '--pool',
+    #                     help='Pool you want to load',
+    #                     default=False,
+    #                     required=False
+    #                     )
 
     parser.add_argument('-l', '--list',
                         help='List of post urls you want to load pics',
@@ -120,8 +120,32 @@ def test_print_post(info):
     print('ID:', info.post_id)
     print('POSTED:', info.posted)
     print('POSTED AGO:', info.posted_ago)
-    pprint('tags')
+    # pprint('tags')
     # pprint(info.tags)
 
+
+def test():
+    from grabber.web.opener import URLopen
+    url = 'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search'
+    opener = URLopen()
+    opener.connect(url)
+    html_text = opener.get_html()
+    with open('file1.txt', 'w', encoding='utf-8') as f:
+        f.write(html_text)
+
+def test2():
+    with open('sankaku_post.txt', 'r', encoding='utf-8') as f:
+        text = f.read()
+
+    from grabber.parser import BooruParser
+    parser = BooruParser('sankaku')
+
+    info = parser.parse_post(text)
+    test_print_post(info)
+
 if __name__ == '__main__':
+    # pass
+    # test2()
+
+
     main2()

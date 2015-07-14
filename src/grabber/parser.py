@@ -1,9 +1,4 @@
 import re
-import os
-import configparser
-
-import sys
-from pprint import pprint
 
 from grabber.containers import SearchInfo, PostInfo
 
@@ -296,6 +291,7 @@ class BooruParser_(object):
         answer.rating = self.get_rating(text)
 
         return answer
+
 
 # hide some methods))
 class BooruParser(object):
