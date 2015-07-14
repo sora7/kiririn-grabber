@@ -47,7 +47,7 @@ class Job(object):
             else:
                 # 'pics' is a file
                 newname = self.PICS_DIR
-                while (os.path.exists(newname)):
+                while os.path.exists(newname):
                     newname = newname + str(random.randint(1, 9))
                 os.rename(self.PICS_DIR, newname)
         else:
@@ -81,7 +81,6 @@ class Job(object):
 
         self.__config['PICS'] = {}
         self.__config['PICS']['pic_count'] = '0'
-
 
     # flush, (or refresh config with job ini file)
     def __flush(self, mode):
@@ -286,7 +285,7 @@ class Job(object):
     # extract pic urls from PICS list into a txt file
     def extract_pics(self):
         timestamp = int(time.time())
-        pic_filename = '%s_%s_%s_PICS.txt'%(self.site ,'_'.join(self.tags), timestamp)
+        pic_filename = '%s_%s_%s_PICS.txt' % (self.site, '_'.join(self.tags), timestamp)
         pic_filename = self.clear_filename(pic_filename)
 
         pic_filename = os.path.join(self.PICS_DIR, pic_filename)
@@ -294,13 +293,13 @@ class Job(object):
         with open(pic_filename, 'w') as pic_file:
             pic_count = int(self.__config['PICS']['pic_count'])
             for i in range(pic_count):
-                pic = '%s\n' % (self.__config['PICS'][str(i)]) # + '\n'#os.linesep
+                pic = '%s\n' % (self.__config['PICS'][str(i)])  # + '\n'#os.linesep
                 pic_file.write(pic)
 
     # extract posts urls from POSTS list into a txt file
     def extract_posts(self):
         timestamp = int(time.time())
-        post_filename = '%s_%s_%s_POSTS.txt'%(self.site ,'_'.join(self.tags), timestamp)
+        post_filename = '%s_%s_%s_POSTS.txt' % (self.site, '_'.join(self.tags), timestamp)
         post_filename = self.clear_filename(post_filename)
 
         post_filename = os.path.join(self.PICS_DIR, post_filename)
@@ -308,13 +307,13 @@ class Job(object):
         with open(post_filename, 'w') as post_file:
             post_count = int(self.__config['POSTS']['post_count'])
             for i in range(post_count):
-                post = self.__config['POSTS'][str(i)] + '\n' #os.linesep
+                post = self.__config['POSTS'][str(i)] + '\n'  #os.linesep
                 post_file.write(post)
 
     # saving job.ini file
     def extract_job(self):
         timestamp = int(time.time())
-        job_filename = '%s_%s_%s_JOB.txt'%(self.site ,'_'.join(self.tags), timestamp)
+        job_filename = '%s_%s_%s_JOB.txt' % (self.site, '_'.join(self.tags), timestamp)
         job_filename = self.clear_filename(job_filename)
 
         job_filename = os.path.join(self.PICS_DIR, job_filename)

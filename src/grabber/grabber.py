@@ -48,7 +48,7 @@ class Grabber(object):
             self.process_posts()
 
     def add_posts(self, posts_file, site, mode=''):
-        #append or add to clear job
+        # append or add to clear job
         self.job.new_job()
 
         self.job.search_done = True
