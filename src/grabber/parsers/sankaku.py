@@ -1,6 +1,7 @@
-'''
-Created on 13.12.2014
-'''
+class SankakuParser(object):
+
+    def __init__(self):
+        pass
 
 # GENERAL
 NAME = 'sankaku'
