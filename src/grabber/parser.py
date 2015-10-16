@@ -96,7 +96,7 @@ class BooruParser_(object):
 
     def query_url(self, tags):
         if len(tags) > self.data['TAG_MAX']:
-            print('% supports only %s tags'%(self.data['NAME'], self.data['TAG_MAX']))
+            print('% supports only %s tags' % (self.data['NAME'], self.data['TAG_MAX']))
             print('tag list will be trimmed')
             tags = tags[:self.data['TAG_MAX']]
 

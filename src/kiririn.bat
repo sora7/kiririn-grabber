@@ -1,3 +1,3 @@
 :: batch file to run kiririn on Windows
-
-python.exe kiririn.py %*
+@echo off
+"C:\Program Files\Python 3.5\python.exe" kiririn.py %*
