@@ -76,7 +76,10 @@ class URLopen(object):
         change User-Agent
         '''
         self.__opener = Opener()
-    
+
+    def get_file(self):
+        pass
+
     def get_html(self):
         i = 0
         
@@ -114,15 +117,21 @@ class URLopen(object):
         raise ValueError('None of retries left')
 
 
+def download2(url):
+    filename = url.split('/')[-1]
+    download(url, filename)
+
+
 def download(url, dst):
     req = urllib.request.Request(url)
 
     ua = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:44.0) Gecko/20100101 Firefox/44.0'
     accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    accept_lang = 'en-US,en;q=0.5'
 
     req.add_header('User-Agent', ua)
     req.add_header('Accept', accept)
-    req.add_header('Accept-Language', 'en-US,en;q=0.5')
+    req.add_header('Accept-Language', accept_lang)
 
     # gelbooru can raise HTTP 403 (Forbidden) error
     # when we try load pic without Referer

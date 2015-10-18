@@ -21,7 +21,7 @@ class KiririnCtrl(object):
         self.__view.buttons['start'].bind("<Button-1>", self.start_handler)
 
     def start_handler(self, event):
-        self.__model.say()
+        self.__model.start()
 
     # the fun must go on!
     def new_menu_handler(self):

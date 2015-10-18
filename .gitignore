@@ -68,3 +68,5 @@ src/*.html
 src/pics/*
 *.html
 *.ini
+#database
+src/*.db

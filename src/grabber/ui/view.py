@@ -10,6 +10,7 @@ class KiririnView(object):
     booru_var = None
     tags_var = None
 
+
     __select_booru_combobox = None
 
     # callbacks for menu commands
@@ -45,9 +46,7 @@ class KiririnView(object):
 
     def __init__(self):
         self.__root = None
-
         self.__create_ui()
-
         self.__default()
 
     @property
@@ -84,7 +83,7 @@ class KiririnView(object):
 
         help_menu = tkinter.Menu(menubar, tearoff=0)
 
-        m1 = tkinter.Menu(help_menu)
+        # m1 = tkinter.Menu(help_menu)
         # help_menu.add_cascade(label='hhhhhh', menu=m1)
         # m1 = tkinter.Menubutton(help_menu, text='ONE')
         # m2 = tkinter.Menubutton(help_menu, text='TWO')
@@ -110,17 +109,21 @@ class KiririnView(object):
         select_booru_label.pack(side='top', fill='x')
 
         self.booru_var = tkinter.StringVar()
-        self.__select_booru_combobox = tkinter.ttk.Combobox(select_frame)
+        self.__select_booru_combobox = tkinter.ttk.Combobox(select_frame,
+                                                            textvariable=self.booru_var)
         self.__select_booru_combobox.pack(side='top', fill='x')
 
         tags_label = tkinter.ttk.Label(select_frame, text='Enter Tags:')
         tags_label.pack(side='top', fill='x')
 
         self.tags_var = tkinter.StringVar()
-        tags_edit = tkinter.ttk.Entry(select_frame, textvariable=self.tags_var)
+        tags_edit = tkinter.ttk.Entry(select_frame,
+                                      textvariable=self.tags_var)
         tags_edit.pack(side='top', fill='x')
 
-        save_label = tkinter.ttk.Label(select_frame, text='Save Path:')
+        self.save_var = tkinter.StringVar()
+        save_label = tkinter.ttk.Label(select_frame, text='Save Path:',
+                                       textvariable=self.save_var)
         save_label.pack(side='top', fill='x')
 
         self.save_var = tkinter.StringVar()
@@ -131,46 +134,71 @@ class KiririnView(object):
         options_frame = tkinter.ttk.LabelFrame(upper_frame, text='Options')
         options_frame.pack(side='left', fill='both', expand=False)
 
-        rating_frame = tkinter.ttk.Frame(options_frame)
-        rating_frame.pack(side='left', fill='both', expand=False)
+        options_rating_frame = tkinter.ttk.Frame(options_frame)
+        options_rating_frame.pack(side='left', fill='both', expand=False)
 
-        rating_label = tkinter.ttk.Label(rating_frame, text='Rating:')
-        rating_label.pack(side='top', fill='x', anchor='nw')
+        options_rating_label = tkinter.ttk.Label(options_rating_frame, text='Rating:')
+        options_rating_label.pack(side='top', fill='x', anchor='nw')
 
-        self.checkboxes['rating_safe'] = tkinter.IntVar()
-        rating_safe_checkbox = tkinter.ttk.Checkbutton(rating_frame, text='Safe',
-                                variable=self.checkboxes['rating_safe'])
-        rating_safe_checkbox.pack(side='top', fill='none', anchor='nw')
+        rating_checkboxes = (
+            ('rating_safe', 'Safe', 1),
+            ('rating_questionable',  'Questionable',  1),
+            ('rating_explicit',  'Explicit',  0)
+        )
 
-        self.checkboxes['rating_questionable'] = tkinter.IntVar()
-        rating_questionable_checkbox = tkinter.ttk.Checkbutton(rating_frame,
-                                                           text='Questionable',
-                                variable=self.checkboxes['rating_questionable'])
-        rating_questionable_checkbox.pack(side='top', fill='none', anchor='nw')
+        for cb_var, cb_text, cb_init in rating_checkboxes:
+            self.checkboxes[cb_var] = tkinter.IntVar()
+            self.checkboxes[cb_var].set(cb_init)
 
-        self.checkboxes['rating_explicit'] = tkinter.IntVar()
-        rating_explicit_checkbox = tkinter.ttk.Checkbutton(rating_frame,
-                                                       text='Explicit',
-                                variable=self.checkboxes['rating_explicit'])
-        rating_explicit_checkbox.pack(side='top', fill='none', anchor='nw')
+            checkbox = tkinter.ttk.Checkbutton(options_rating_frame,
+                                               text=cb_text,
+                                               variable=self.checkboxes[cb_var])
+            checkbox.pack(side='top', fill='none', anchor='nw')
 
-        size_frame = tkinter.ttk.Frame(options_frame)
-        size_frame.pack(side='left', fill='both', expand=False)
+        options_size_frame = tkinter.ttk.Frame(options_frame)
+        options_size_frame.pack(side='left', fill='both', expand=False)
 
-        size_label = tkinter.ttk.Label(size_frame, text='Size:')
+        size_label = tkinter.ttk.Label(options_size_frame, text='Size:')
         size_label.pack(side='top', fill='none', anchor='nw')
 
-        self.checkboxes['size_original'] = tkinter.IntVar()
-        size_original_checkbox = tkinter.ttk.Checkbutton(size_frame,
-                                                     text='Original',
-                                variable=self.checkboxes['size_original'])
-        size_original_checkbox.pack(side='top', fill='none', anchor='nw')
+        size_checkboxes = (
+            ('size_original', 'Original', 1),
+            ('size_resized',  'Resized',  1)
+        )
 
-        self.checkboxes['size_resized'] = tkinter.IntVar()
-        size_resized_checkbox = tkinter.ttk.Checkbutton(size_frame, text='Resized',
-                                variable=self.checkboxes['size_resized'])
-        size_resized_checkbox.pack(side='top', fill='none', anchor='nw')
-        # --------------------------------------------------------------------------
+        for cb_var, cb_text, cb_init in size_checkboxes:
+            self.checkboxes[cb_var] = tkinter.IntVar()
+            self.checkboxes[cb_var].set(cb_init)
+
+            checkbox = tkinter.ttk.Checkbutton(options_size_frame,
+                                               text=cb_text,
+                                               variable=self.checkboxes[cb_var])
+            checkbox.pack(side='top', fill='none', anchor='nw')
+
+        options_filetype_frame = tkinter.ttk.Frame(options_frame)
+        options_filetype_frame.pack(side='left', fill='both', expand=False)
+
+        filetype_label = tkinter.ttk.Label(options_filetype_frame,
+                                           text='File type:')
+        filetype_label.pack(side='top', fill='none', anchor='nw')
+
+        type_checkboxes = (
+            ('type_jpg',  'JPG/JPEG', 1),
+            ('type_png',  'PNG',      1),
+            ('type_gif',  'GIF',      1),
+            ('type_webm', 'WEBM',     0)
+        )
+
+        for cb_var, cb_text, cb_init in type_checkboxes:
+            self.checkboxes[cb_var] = tkinter.IntVar()
+            self.checkboxes[cb_var].set(cb_init)
+
+            checkbox = tkinter.ttk.Checkbutton(options_filetype_frame,
+                                               text=cb_text,
+                                               variable=self.checkboxes[cb_var])
+            checkbox.pack(side='top', fill='none', anchor='nw')
+
+# -----------------------------------------------------------------------------
 
         actions_frame = tkinter.ttk.LabelFrame(upper_frame, text='Actions')
         actions_frame.pack(side='right', fill='both', expand=False)

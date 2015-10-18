@@ -1,5 +1,7 @@
 # common parser interface classs
 
+
+
 # from sankaku import SankakuParser
 # from mishimmie import MishimmieParser
 
