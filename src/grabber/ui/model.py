@@ -72,11 +72,10 @@ class KiririnModel(object):
 
         self.def_options()
 
-
     def start(self):
         print('Baka Aniki!')
 
-        url = 'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search'
+        # url = 'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search'
         # url = 'https://chan.sankakucomplex.com/post/show/4269544'
 
         # download(url, 'search.html')
@@ -102,7 +101,10 @@ class KiririnModel(object):
         # self.get_options()
         # test()
 
-        pprint.pprint(self.get_options())
+        opt = self.get_options()
+        pprint.pprint(opt)
+
+        self.grabber.add_job(opt)
 
     def def_options(self):
         self.ui.booru_var.set('Sankaku Channel')
@@ -111,6 +113,7 @@ class KiririnModel(object):
 
     def get_options(self):
         options = dict()
+
         options['site'] = self.ui.booru_var.get()
         options['tags'] = self.ui.tags_var.get()
         options['savepath'] = self.ui.save_var.get()
