@@ -12,6 +12,8 @@ import grabber.grabber_new
 
 
 
+
+
 class Worker(threading.Thread):
 
     def __init__(self, work_queue):
@@ -48,6 +50,7 @@ def test():
         fname = 'file_' + str(i) + '.html'
         download(url, fname)
         i += 1
+
 
 def test_threads():
     url1 = 'https://cs.sankakucomplex.com/data/90/eb/90ebcb1c65390a24cb1f858c32157df3.png'
@@ -122,6 +125,10 @@ class KiririnModel(object):
         # self.grabber.add_job(opt)
         self.grabber.add_start(opt)
         # test()
+
+    def stop(self):
+        test_threads()
+        pass
 
     def def_options(self):
         self.ui.booru_var.set('Sankaku Channel')

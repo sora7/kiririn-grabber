@@ -122,7 +122,8 @@ class Loader(object):
     def __init__(self):
         pass
 
-    def get_html(self, url):
+    @staticmethod
+    def get_file(url):
         req = urllib.request.Request(url)
 
         ua = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:44.0) Gecko/20100101 Firefox/44.0'
@@ -145,6 +146,10 @@ class Loader(object):
 
         page_text = page.read()
 
+        return page_text
+
+    def get_html(self, url):
+        page_text = self.get_file(url)
         return page_text.decode('utf-8')
 
 def download2(url):

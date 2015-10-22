@@ -10,7 +10,6 @@ class KiririnView(object):
     booru_var = None
     tags_var = None
 
-
     __select_booru_combobox = None
 
     # callbacks for menu commands
@@ -122,8 +121,7 @@ class KiririnView(object):
         tags_edit.pack(side='top', fill='x')
 
         self.save_var = tkinter.StringVar()
-        save_label = tkinter.ttk.Label(select_frame, text='Save Path:',
-                                       textvariable=self.save_var)
+        save_label = tkinter.ttk.Label(select_frame, text='Save Path:')
         save_label.pack(side='top', fill='x')
 
         self.save_var = tkinter.StringVar()

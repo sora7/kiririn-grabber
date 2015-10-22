@@ -19,7 +19,31 @@ JOB_OPTIONS = {
     'try_max': 0,
 }
 
-# def job2lst(options):
+
+class PicLoader(object):
+    __concurrent = None
+    __save_path = None
+
+    __loader = None
+
+    def __init__(self, save_path, concurrent=1):
+        self.__save_path = save_path
+        if not os.path.exists(self.__save_path):
+            os.mkdir(self.__save_path)
+
+        self.__concurrent = concurrent
+
+        self.__loader = grabber.web.opener.Loader()
+
+    def get_concurrent(self):
+        return self.__concurrent
+
+    def load(self, url, filename):
+        file_body = self.__loader.get_file(url)
+        file_fullpath = os.path.join(self.__save_path, filename)
+
+        with open(file_fullpath, 'wb') as file_to_write:
+            file_to_write.write(file_body)
 
 
 class Job(object):
@@ -166,6 +190,7 @@ class Job(object):
             options[fields[i]] = line[i]
         options['rating'] = str(options['rating'])
         options['size'] = str(options['size'])
+        options['filetypes'] = str(options['filetypes'])
         # print('PRINT OPTIONS')
         # pprint(options)
         return options
@@ -287,6 +312,28 @@ class Job(object):
                          'WHERE id=%s ' % job_id
                          )
 
+    def get_pics(self, job_id):
+        with sqlite3.connect(self.__db_file) as conn:
+            curs = conn.cursor()
+            curs.execute('SELECT id, url, try, filename ' +
+                         'FROM pics ' +
+                         'WHERE job_id=%s and done=0' % job_id
+                         )
+            data = curs.fetchall()
+            # print(data)
+            return data
+        # options = self.job.get_job(job_id)
+
+    def upd_pics(self, pic_id, try_count=1, done=True):
+        with sqlite3.connect(self.__db_file) as conn:
+            curs = conn.cursor()
+            curs.execute('UPDATE pics ' +
+                         'SET done=%s, ' % int(done) +
+                         'try=%s ' % try_count +
+                         'WHERE id=%s ' % pic_id
+                         )
+            conn.commit()
+
 
 class PicNamer(object):
     __pattern = None
@@ -309,6 +356,8 @@ class Grabber(object):
     loader = None
 
     pic_namer = None
+
+    pics_loader = None
 
     def __init__(self):
         self.job = Job()
@@ -345,8 +394,11 @@ class Grabber(object):
     def start_job(self, job_id):
         options = self.job.get_job(job_id)
         self.job.job_start_time(options['job_id'])
+
         self.load_parsers(options['site'])
         self.pic_namer = PicNamer(options['filenames'])
+        self.pics_loader = PicLoader(options['save_path'])
+
         if not options['search_done']:
             # search processing
             search_data = self.job.get_search(options['job_id'])
@@ -361,8 +413,7 @@ class Grabber(object):
                 # posts processing
                 self.post_process(options['job_id'])
             else:
-                # files load processing
-                pass
+                self.load_pics(options['job_id'])
 
     def load_parsers(self, site):
         if site == 'Sankaku Channel':
@@ -423,6 +474,23 @@ class Grabber(object):
         # self.job.job_upd(job_id, search_done=True)
         # self.post_process(job_id)
 
+    @staticmethod
+    def check_filetypes(url, ftypes):
+        u = url.lower()
+        if u.endswith('jpg') or u.endswith('jpeg'):
+            if '1' in ftypes:
+                return True
+        if u.endswith('png'):
+            if '2' in ftypes:
+                return True
+        if u.endswith('gif'):
+            if '3' in ftypes:
+                return True
+        if u.endswith('webm'):
+            if '4' in ftypes:
+                return True
+            return False
+
     def post_process(self, job_id):
         posts_data = self.job.get_posts(job_id)
         options = self.job.get_job(job_id)
@@ -444,8 +512,9 @@ class Grabber(object):
 
                 for size, pic_url in post_info['pics']:
                     if size in options['size'] and pic_url:
-                        filename = self.pic_namer.gen(pic_url, tags)
-                        pics.append((pic_url, filename))
+                        if self.check_filetypes(pic_url, options['filetypes']):
+                            filename = self.pic_namer.gen(pic_url, tags)
+                            pics.append((pic_url, filename))
 
                 self.job.add_pics(job_id, post_id, pics)
             try_max = 1
@@ -455,4 +524,14 @@ class Grabber(object):
                                post_info['tags'])
 
         self.job.job_upd(job_id, posts_done=True)
+        self.load_pics(job_id)
+
+    def load_pics(self, job_id):
+        pics_data = self.job.get_pics(job_id)
+        for pic_id, url, try_count, filename in pics_data:
+            self.pics_loader.load(url, filename)
+            print('DONE: %s' % filename)
+            self.job.upd_pics(pic_id, try_count=1, done=True)
+        self.job.job_upd(job_id, job_done=True)
+#
 
