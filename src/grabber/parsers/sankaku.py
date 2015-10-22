@@ -45,10 +45,14 @@ class SearchParser(object):
         self.__next_regex = re.compile(NEXT_REGEX)
 
     def make_query(self, tags):
-        # trim tags according to limit
-        tags_ = tags[0:TAG_MAX]
-        tags_str = TAG_SEP.join(tags_)
+        tags_lst = tags.split(' ')
+        # print(tags)
+        # trim tags according to limt
+        if len(tags_lst) > TAG_MAX:
+            tags_lst = tags_lst[0:TAG_MAX]
 
+        tags_str = TAG_SEP.join(tags_lst)
+        # print(tags_str)
         result_str = QUERY_PREFIX + tags_str + QUERY_SUFFIX
         return result_str
 
@@ -120,6 +124,7 @@ class PostParser(object):
             }
 
         result = {}
+        result['pics'] = []
 
         if flags['tags']:
             if self.__tags_re.search(self.__text):
@@ -128,18 +133,26 @@ class PostParser(object):
             else:
                 result['tags'] = None
 
-        result['pics'] = []
+        # result['pics'] = []
         if flags['original']:
             if self.__original_re.search(self.__text):
-                orig = self.__original_re.findall(self.__text)[0]
-                orig = 'https:' + orig
-                result['pics'].append(orig)
+                orig_url = self.__original_re.findall(self.__text)[0]
+                orig_url = 'https:' + orig_url
+
+                orig_tuple = ('1', orig_url)
+            else:
+                orig_tuple = ('1', None)
+            result['pics'].append(orig_tuple)
 
         if flags['resized']:
             if self.__resized_re.search(self.__text):
-                res = self.__resized_re.findall(self.__text)[0]
-                res = 'https:' + res
-                result['pics'].append(res)
+                res_url = self.__resized_re.findall(self.__text)[0]
+                res_url = 'https:' + res_url
+
+                res_tuple = ('2', res_url)
+            else:
+                res_tuple = ('2', None)
+            result['pics'].append(res_tuple)
 
         if flags['rating']:
             if self.__rating_re.search(self.__text):

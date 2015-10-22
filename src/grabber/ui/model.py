@@ -32,6 +32,24 @@ class Worker(threading.Thread):
 # import pprint
 
 def test():
+    urls = (
+        'https://chan.sankakucomplex.com/?tags=misaki_kurehito+swimsuit+1girl+blush&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=misaki_kurehito+swimsuit+1girl+blush&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=misaki_kurehito+swimsuit+1girl+blush&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=misaki_kurehito+swimsuit+1girl+blush&commit=Search',
+        'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search'
+    )
+
+    i = 1
+    for url in urls:
+        fname = 'file_' + str(i) + '.html'
+        download(url, fname)
+        i += 1
+
+def test_threads():
     url1 = 'https://cs.sankakucomplex.com/data/90/eb/90ebcb1c65390a24cb1f858c32157df3.png'
     url2 = 'https://cs.sankakucomplex.com/data/e1/6b/e16bf5fc49fad3befefbb054d013e07c.png'
     url3 = 'https://cs.sankakucomplex.com/data/6e/98/6e98bbea25b428522e2e23328ecc06c1.jpg'
@@ -60,14 +78,11 @@ def test():
 
 class KiririnModel(object):
     ui = None
-
     grabber = None
 
     def __init__(self, view):
         self.ui = view
-
         self.grabber = grabber.grabber_new.Grabber()
-
         self.ui.set_booru_list(self.grabber.get_supported_booru())
 
         self.def_options()
@@ -102,9 +117,11 @@ class KiririnModel(object):
         # test()
 
         opt = self.get_options()
-        pprint.pprint(opt)
+        # pprint.pprint(opt)
 
-        self.grabber.add_job(opt)
+        # self.grabber.add_job(opt)
+        self.grabber.add_start(opt)
+        # test()
 
     def def_options(self):
         self.ui.booru_var.set('Sankaku Channel')
@@ -115,7 +132,10 @@ class KiririnModel(object):
         options = dict()
 
         options['site'] = self.ui.booru_var.get()
-        options['tags'] = self.ui.tags_var.get()
+        tags_str = self.ui.tags_var.get()
+        # print(tags_str)
+        # tags = tags_str.split(' ')
+        options['tags'] = tags_str
         options['savepath'] = self.ui.save_var.get()
 
         rating = []
