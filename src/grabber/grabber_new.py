@@ -1,6 +1,9 @@
 import sqlite3
 import time
 import os
+
+import threading
+
 # --------DEBUG----------
 import sys
 from pprint import pprint
@@ -347,8 +350,24 @@ class PicNamer(object):
             return fname_orig
 
 
+class Log(object):
+    __panel = None
+    __cons = None
+
+    def __init__(self, panel=None, console=True):
+        self.__panel = panel
+        self.__cons = console
+
+    def add(self, text):
+        if self.__panel:
+            self.__panel.insert('insert', '%s\n' % text)
+        if self.__cons:
+            print(text)
+
+
 class Grabber(object):
     job = None
+    log = None
 
     search_parser = None
     post_parser = None
@@ -359,19 +378,23 @@ class Grabber(object):
 
     pics_loader = None
 
-    def __init__(self):
+    def __init__(self, logpanel=None):
+        self.log = Log(logpanel)
+
         self.job = Job()
 
         self.loader = grabber.web.opener.Loader()
+
+
 
     @staticmethod
     def get_supported_booru():
         lst = (
             'Sankaku Channel',
-            'Konachan',
-            'Danbooru',
-            'Gelbooru',
-            'Safebooru'
+            # 'Konachan',
+            # 'Danbooru',
+            # 'Gelbooru',
+            # 'Safebooru'
         )
         return lst
 
@@ -379,12 +402,7 @@ class Grabber(object):
         self.job.add_job(opt)
 
     def add_start(self, opt):
-        #
-        #
-        #
-        #
-        #
-        # self.add_job(opt)
+        self.add_job(opt)
         self.start_last_job()
 
     def start_last_job(self):
@@ -407,13 +425,13 @@ class Grabber(object):
                 self.search_start(options)
             else:
                 # continue processing search
-                self.search_process(options['job_id'])
+                self.search_process_t(options['job_id'])
         else:
             if not options['posts_done']:
                 # posts processing
-                self.post_process(options['job_id'])
+                self.post_process_t(options['job_id'])
             else:
-                self.load_pics(options['job_id'])
+                self.load_pics_t(options['job_id'])
 
     def load_parsers(self, site):
         if site == 'Sankaku Channel':
@@ -428,12 +446,17 @@ class Grabber(object):
         init_url = self.search_parser.make_query(tags)
         # print(init_url)
         self.job.add_search(options['job_id'], init_url)
-        self.search_process(options['job_id'])
+        self.search_process_t(options['job_id'])
+
+    def search_process_t(self, job_id):
+        t = threading.Thread(target=self.search_process, args=(job_id,))
+        t.start()
+        self.log.add('Search processing start')
 
     def search_process(self, job_id):
         search_data = self.job.get_search(job_id)
 
-        print('SEARCH')
+        # print('SEARCH')
         if len(search_data) > 0:
             search_id, url, try_count = search_data[0]
             search_text = self.loader.get_html(url)
@@ -442,20 +465,20 @@ class Grabber(object):
             search_info = self.search_parser.parse()
 
             if len(search_info['posts']) > 0:
-                print('%s posts extracted' % len(search_info['posts']))
+                self.log.add('%s posts extracted' % len(search_info['posts']))
                 self.job.add_posts(job_id, search_info['posts'])
             if bool(search_info['next']):
-                print('next search page: %s' % search_info['next'])
+                self.log.add('next search page: %s' % search_info['next'])
                 self.job.add_search(job_id, search_info['next'])
 
             self.job.upd_search(search_id, done=True, try_count=1)
 
             self.search_process(job_id)
         else:
-            print('Search processing done')
+            self.log.add('Search processing done')
             # next step
             self.job.job_upd(job_id, search_done=True)
-            self.post_process(job_id)
+            self.post_process_t(job_id)
 
         # for search_id, url, try_count in search_data:
         #     search_text = self.loader.get_html(url)
@@ -491,6 +514,10 @@ class Grabber(object):
                 return True
             return False
 
+    def post_process_t(self, job_id):
+        t = threading.Thread(target=self.post_process, args=(job_id,))
+        t.start()
+
     def post_process(self, job_id):
         posts_data = self.job.get_posts(job_id)
         options = self.job.get_job(job_id)
@@ -503,7 +530,7 @@ class Grabber(object):
             post_info = self.post_parser.parse()
 
             # pprint(options)
-            pprint(post_info['pics'])
+            # pprint(post_info['pics'])
 
             if post_info['rating'] in options['rating']:
                 # rating ok
@@ -524,14 +551,25 @@ class Grabber(object):
                                post_info['tags'])
 
         self.job.job_upd(job_id, posts_done=True)
-        self.load_pics(job_id)
+        self.load_pics_t(job_id)
+
+    def load_pics_t(self, job_id):
+        t = threading.Thread(target=self.load_pics, args=(job_id,))
+        t.start()
+        # self.load_pics(job_id)
 
     def load_pics(self, job_id):
+        self.log.add('Pic load start')
+        # sys.exit(-1)
+
         pics_data = self.job.get_pics(job_id)
         for pic_id, url, try_count, filename in pics_data:
             self.pics_loader.load(url, filename)
-            print('DONE: %s' % filename)
+            self.log.add('DONE: %s' % filename)
+            # print('DONE: %s' % filename)
+
             self.job.upd_pics(pic_id, try_count=1, done=True)
+            self.log.add('Pic load complete')
         self.job.job_upd(job_id, job_done=True)
 #
 

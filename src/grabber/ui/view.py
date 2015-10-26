@@ -1,11 +1,14 @@
 import tkinter.ttk
 
+
 class KiririnView(object):
     __root = None
 
     # ui widgets
     buttons = {}
     checkboxes = {}
+
+    text = {}
 
     booru_var = None
     tags_var = None
@@ -67,7 +70,10 @@ class KiririnView(object):
 
         self.__root.title('Kiririn Booru Grabber')
 
-        x, y, w, h = 0, 0, 500, 400
+        window_width = 600
+        window_height = 400
+
+        x, y, w, h = 0, 0, window_width, window_height
         self.__root.geometry('%sx%s+%s+%s' % (w, h, x, y))
 
         menubar = tkinter.Menu(self.__root)
@@ -144,9 +150,9 @@ class KiririnView(object):
             ('rating_explicit',  'Explicit',  0)
         )
 
-        for cb_var, cb_text, cb_init in rating_checkboxes:
+        for cb_var, cb_text, cb_checked in rating_checkboxes:
             self.checkboxes[cb_var] = tkinter.IntVar()
-            self.checkboxes[cb_var].set(cb_init)
+            self.checkboxes[cb_var].set(cb_checked)
 
             checkbox = tkinter.ttk.Checkbutton(options_rating_frame,
                                                text=cb_text,
@@ -164,9 +170,9 @@ class KiririnView(object):
             ('size_resized',  'Resized',  1)
         )
 
-        for cb_var, cb_text, cb_init in size_checkboxes:
+        for cb_var, cb_text, cb_checked in size_checkboxes:
             self.checkboxes[cb_var] = tkinter.IntVar()
-            self.checkboxes[cb_var].set(cb_init)
+            self.checkboxes[cb_var].set(cb_checked)
 
             checkbox = tkinter.ttk.Checkbutton(options_size_frame,
                                                text=cb_text,
@@ -187,9 +193,9 @@ class KiririnView(object):
             ('type_webm', 'WEBM',     0)
         )
 
-        for cb_var, cb_text, cb_init in type_checkboxes:
+        for cb_var, cb_text, cb_checked in type_checkboxes:
             self.checkboxes[cb_var] = tkinter.IntVar()
-            self.checkboxes[cb_var].set(cb_init)
+            self.checkboxes[cb_var].set(cb_checked)
 
             checkbox = tkinter.ttk.Checkbutton(options_filetype_frame,
                                                text=cb_text,
@@ -205,8 +211,8 @@ class KiririnView(object):
         self.buttons['start'] = tkinter.ttk.Button(actions_frame, text='START')
         self.buttons['start'].pack(side='top', fill='x')
 
-        self.buttons['pause'] = tkinter.ttk.Button(actions_frame, text='PAUSE')
-        self.buttons['pause'].pack(side='top', fill='x')
+        self.buttons['cont'] = tkinter.ttk.Button(actions_frame, text='CONTINUE')
+        self.buttons['cont'].pack(side='top', fill='x')
 
         self.buttons['stop'] = tkinter.ttk.Button(actions_frame, text='STOP')
         self.buttons['stop'].pack(side='top', fill='x')
@@ -229,8 +235,39 @@ class KiririnView(object):
         grab_progress = tkinter.ttk.Progressbar(progress_frame)
         grab_progress.pack(side='left', fill='x', expand=True)
 
-        log_text = tkinter.Text(main_frame)
-        log_text.pack(side='top', fill='both', expand=True)
+        log_frame = tkinter.ttk.LabelFrame(main_frame, text='Log')
+        log_frame.pack(side='top', fill='both', expand=True)
+        log_frame['padding'] = (5, 5)
+
+         # .pack(side='right', fill='y', expand=False)
+
+        self.text['log'] = tkinter.Text(log_frame, wrap=tkinter.NONE)
+        self.text['log'].grid(row=0, column=0, sticky='NSWE') #.pack(side='left', fill='both', expand=True)
+
+        yscroll = tkinter.ttk.Scrollbar(log_frame)
+        yscroll.grid(row=0, column=1, sticky='NS')
+        yscroll['command'] = self.text['log'].yview
+        self.text['log']['yscrollcommand'] = yscroll.set
+
+        xscroll = tkinter.ttk.Scrollbar(log_frame, orient='horizontal')
+        xscroll.grid(row=1, column=0, sticky='WE')
+        xscroll['command'] = self.text['log'].xview
+        self.text['log']['xscrollcommand'] = xscroll.set
+
+        # log_frame.columnconfigure(1, 'minsize')
+        log_frame.columnconfigure(0, weight=1)
+        # log_frame.rowconfigure(1, 'minsize')
+        log_frame.rowconfigure(0, weight=1)
+
+        # vscroll.config(command=self.text['log'].yview)
+
+        # self.text['log'].tag_configure('error', foreground='#ff0000')
+        #
+        # self.text['log'].insert('end', 'log text\n')
+        # self.text['log'].insert('end', 'text1\n', 'error')
+        # self.text['log'].insert('end', 'text2\n')
+
+
 
     def close(self):
         self.__root.destroy()

@@ -19,10 +19,14 @@ class KiririnCtrl(object):
 
     def __bind_handlers(self):
         self.__view.buttons['start'].bind("<Button-1>", self.start_handler)
+        self.__view.buttons['cont'].bind("<Button-1>", self.cont_handler)
         self.__view.buttons['stop'].bind("<Button-1>", self.stop_handler)
 
     def start_handler(self, event):
         self.__model.start()
+
+    def cont_handler(self, event):
+        self.__model.cont()
 
     def stop_handler(self, event):
         self.__model.stop()

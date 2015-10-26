@@ -11,8 +11,23 @@ import pprint
 import grabber.grabber_new
 
 
+def test1():
+    urls = ['https://cs.sankakucomplex.com/data/90/eb/90ebcb1c65390a24cb1f858c32157df3.png',
+             'https://cs.sankakucomplex.com/data/e1/6b/e16bf5fc49fad3befefbb054d013e07c.png',
+             'https://cs.sankakucomplex.com/data/6e/98/6e98bbea25b428522e2e23328ecc06c1.jpg',
+             ]
 
 
+    # for u in urls:
+    t = threading.Thread(target=download2, args=(urls[0],))
+    t.start()
+    # t.join()
+
+    # download2(urls[1])
+    # download2(urls[2])
+    # download2(urls[3])
+
+    pass
 
 class Worker(threading.Thread):
 
@@ -85,7 +100,8 @@ class KiririnModel(object):
 
     def __init__(self, view):
         self.ui = view
-        self.grabber = grabber.grabber_new.Grabber()
+        self.grabber = grabber.grabber_new.Grabber(logpanel=self.ui.text['log'])
+
         self.ui.set_booru_list(self.grabber.get_supported_booru())
 
         self.def_options()
@@ -96,44 +112,32 @@ class KiririnModel(object):
         # url = 'https://chan.sankakucomplex.com/?tags=angelise_ikaruga_misurugi+official_art&commit=Search'
         # url = 'https://chan.sankakucomplex.com/post/show/4269544'
 
-        # download(url, 'search.html')
-
-        # with open('search.html', encoding='utf-8') as f:
-        #     text = f.read()
-        #
-        # parser = SearchParser()
-        # parser.feed(text)
-        # info = parser.parse()
-        # pprint.pprint(info)
-        # print(len(info['posts']))
-        # flags = {
-        #     'tags': True,
-        #     'original': True,
-        #     'resized': True,
-        #     'rating': True,
-        # }
-        # res = parser.parse(flags)
-        #
-        # pprint.pprint(res)
-        # self.def_options()
-        # self.get_options()
-        # test()
-
         opt = self.get_options()
-        # pprint.pprint(opt)
+        # opt = self.def_options()
 
-        # self.grabber.add_job(opt)
+        self.grabber.add_job(opt)
         self.grabber.add_start(opt)
-        # test()
+
+    def cont(self):
+        self.grabber.start_last_job()
 
     def stop(self):
-        test_threads()
+        # test_threads()
+        test1()
         pass
 
     def def_options(self):
-        self.ui.booru_var.set('Sankaku Channel')
-        self.ui.tags_var.set('misaki_kurehito')
-        self.ui.save_var.set('e:\\pics')
+        options = {
+            'site': 'Sankaku Channel',
+            'tags': 'angelise_ikaruga_misurugi official_art',
+            'savepath': 'e:\pics',
+
+        }
+
+        return options
+        # self.ui.booru_var.set('Sankaku Channel')
+        # self.ui.tags_var.set('misaki_kurehito')
+        # self.ui.save_var.set('e:\\pics')
 
     def get_options(self):
         options = dict()
