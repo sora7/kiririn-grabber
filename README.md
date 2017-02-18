@@ -2,16 +2,12 @@
 
 Picture grabber for sites on Danbooru engine and other (see [list](#booru_supported) below).
 
-This is the very first "working" version. It still can't download pictures
-(but create a .txt file with the direct links to pictures). You can use your
-favorite download manager or even [DownThemAll](http://www.downthemall.net/) Firefox Extension (recommended).
-
 ## USAGE
 
 CLI or Command Line Interface. Open a console in a folder with kiririn and 
 type:
 
-    kiririn.py -s %booru_name% -t %tag1% %tag2%
+    kiririn-cli.py -s %booru_name% -t %tag1% %tag2%
 
 where: 
 * %booru_name% - alias for booru (see [list](#booru_supported))
@@ -19,20 +15,16 @@ where:
 
 Xample usage:
 
-    kiririn.py -s sankaku -t tag1 tag2 more_tag
+    kiririn-cli.py -s sankaku -t tag1 tag2 more_tag
 
 Good for POSIX-linux, but on Windows there are some troubles with redirecting
 command line arguments from Python interpreter to script. Use the kiririn.bat
 instead:
 
-    kiririn.bat -s sankaku -t tag1 tag2 more_tag
+    kiririn-cli.bat -s sankaku -t tag1 tag2 more_tag
 
 this will find pics on SankakuChannel for "tag1" and "tag" and "more_tag" tags
-and create file:
-
-     "sankaku_tag1_tag2_more_tag_PICS.txt"
-
-with direct links to pics. It will be placed in "pics" folder.
+and download them.
 
 ##KEYS
 
@@ -67,7 +59,7 @@ Load resized pics only (if any). By default, grabber load almost all pics.
 Append posts urls from .txt file and start process.
 Example:
 
-    kiririn.py -s konachan -l posts_konachan.txt
+    kiririn-cli.py -s konachan -l posts_konachan.txt
 
 ## OTHER
 
@@ -102,7 +94,7 @@ Booru                                             |Original|Resized|Tag limit|Co
 ###Future features:
 
 * pool load
-* graphical user interface (using Tk or ttk)
+* [DONE] graphical user interface (using Tk or ttk)
 
 
 ## REQUIREMENTS
