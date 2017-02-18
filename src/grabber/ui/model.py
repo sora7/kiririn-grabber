@@ -179,6 +179,7 @@ class KiririnModel(object):
         options['filenames'] = '%orig%'
         options['try_max'] = 10
 
-        # pprint.pprint(options)
+        print('JOB OPTIONS:')
+        pprint.pprint(options)
 
         return options

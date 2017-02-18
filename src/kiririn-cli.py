@@ -4,50 +4,93 @@ import sys
 import argparse
 from pprint import pprint
 
-from grabber.search import BOORU_AWAILABLE, print_sites
-from grabber.grabber import Grabber
+# from grabber.search import BOORU_AWAILABLE, print_sites
+# from grabber.grabber import Grabber
 
+import grabber.parsers.common as common
+from grabber.grabber_new import Grabber
+
+def site_alias(alias):
+    if alias == "sankaku":
+        return "Sankaku Channel"
 
 def main2():
     print('Kiririn Booru Grabber')
     args = parse_args()
 
     grabber = Grabber()
+    options = dict()
 
     if args['continue']:
-        grabber.cont_search()
+        grabber.start_last_job()
     else:
         if args['site'] is None:
             # -s --site without args:
             # print supported booru
-            print_sites()
+            print('Supported booru list:')
+            print(grabber.get_supported_booru())
         else:
-            if (args['site']) not in BOORU_AWAILABLE:
+            site = site_alias(args['site'])
+            if site not in grabber.get_supported_booru():
                 print('Sorry, this site not supported yet...')
             else:
+                options['site'] = site
+
+                size = list()
                 # if mode don't touched we gonna load all pics we find))
                 if (not args['resized']) and (not args['original']):
-                    original, resized = True, True
-                else:
-                    resized = args['resized']
-                    original = args['original']
+                    # original, resized = True, True
+                    size.append(str(common.SIZE_ORIGINAL))
+                    size.append(str(common.SIZE_RESIZED))
+                elif args['original']:
+                    size.append(str(common.SIZE_ORIGINAL))
+                elif args['resized']:
+                    size.append(str(common.SIZE_RESIZED))
 
-                mode = {
-                    'original': original,
-                    'resized': resized
-                }
+                    # resized = args['resized']
+                    # original = args['original']
+
+                # mode = {
+                #     'original': original,
+                #     'resized': resized
+                # }
                 # pprint(mode)
+                options['size'] = ''.join(size)
 
                 # add list with posts (post URLs)
-                if args['list'] is not False:
-                    grabber.add_posts(args['list'], args['site'], mode)
+                # if args['list'] is not False:
+                #     grabber.add_posts(args['list'], args['site'], mode)
                 # check out the tags
-                elif (args['tags'] is None) or (len(args['tags']) == 0):
+
+                if (args['tags'] is None) or (len(args['tags']) == 0):
                     print('NO TAGS!')
                     sys.exit(-1)
                 # OK, RUN!
                 else:
-                    grabber.search(args['site'], args['tags'], mode)
+                    rating = list()
+                    rating.append(str(common.RATING_SAFE))
+                    rating.append(str(common.RATING_QUESTIONABLE))
+                    rating.append(str(common.RATING_EXPLICIT))
+                    options['rating'] = ''.join(rating)
+
+                    ftype = list()
+                    ftype.append(str(common.TYPE_JPG))
+                    ftype.append(str(common.TYPE_PNG))
+                    ftype.append(str(common.TYPE_GIF))
+                    ftype.append(str(common.TYPE_WEBM))
+                    options['filetypes'] = ''.join(ftype)
+
+                    options['filenames'] = '%orig%'
+                    options['try_max'] = 10
+
+                    options['savepath'] = 'pics'
+                    options['tags'] = ' '.join(args['tags'])
+
+                    print('JOB OPTIONS')
+                    pprint(options)
+
+                    grabber.add_start(options)
+                    # grabber.search(args['site'], args['tags'], mode)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Kiririn Booru Grabber')

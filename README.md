@@ -4,7 +4,11 @@ Picture grabber for sites on Danbooru engine and other (see [list](#booru_suppor
 
 ## USAGE
 
-CLI or Command Line Interface. Open a console in a folder with kiririn and 
+###GUI
+
+
+###CLI
+Or Command Line Interface. Open a console in a folder with kiririn and
 type:
 
     kiririn-cli.py -s %booru_name% -t %tag1% %tag2%
@@ -55,20 +59,13 @@ all pics.
     -r, --resized
 Load resized pics only (if any). By default, grabber load almost all pics.
 
-    -l, --list-add
-Append posts urls from .txt file and start process.
-Example:
-
-    kiririn-cli.py -s konachan -l posts_konachan.txt
-
 ## OTHER
 
 ###Supported Booru List: <a id="booru_supported"></a>
 
 Booru                                             |Alias   |Original|Resized|Tag limit 
 --------------------------------------------------|--------|--------|-------|----------
-[SankakuChannel](https://chan.sankakucomplex.com) |sankaku |yes     |yes    |4  
-[Konachan.com](https://konachan.com)              |konachan|yes     |yes    |6
+[SankakuChannel](https://chan.sankakucomplex.com) |sankaku |yes     |yes    |4
 
 ###Booru List:
 
@@ -93,7 +90,6 @@ Booru                                             |Original|Resized|Tag limit|Co
 
 ###Future features:
 
-* pool load
 * [DONE] graphical user interface (using Tk or ttk)
 
 
