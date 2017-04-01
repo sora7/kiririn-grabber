@@ -4,10 +4,10 @@ Picture grabber for sites on Danbooru engine and other (see [list](#booru_suppor
 
 ## USAGE
 
-###GUI
+### GUI
 
 
-###CLI
+### CLI
 Or Command Line Interface. Open a console in a folder with kiririn and
 type:
 
@@ -30,9 +30,9 @@ instead:
 this will find pics on SankakuChannel for "tag1" and "tag" and "more_tag" tags
 and download them.
 
-##KEYS
+## KEYS
 
-###Main
+### Main
 
     -s, --site
 Site where you want to find (and load) pics. If argument doesn't given it
@@ -44,7 +44,7 @@ List of tags you want to load. Note that this must be the **last** key
 has restrictions in maximum tag count (for anonymous mode), overlimit tags 
 will be discarded.
 
-###Optional
+### Optional
 
 As i said before, these keys have to be typed before -t (--tags) key.
 
@@ -61,13 +61,13 @@ Load resized pics only (if any). By default, grabber load almost all pics.
 
 ## OTHER
 
-###Supported Booru List: <a id="booru_supported"></a>
+### Supported Booru List: <a id="booru_supported"></a>
 
 Booru                                             |Alias   |Original|Resized|Tag limit 
 --------------------------------------------------|--------|--------|-------|----------
 [SankakuChannel](https://chan.sankakucomplex.com) |sankaku |yes     |yes    |4
 
-###Booru List:
+### Booru List:
 
 Approximate list of booru kiririn can grab pics from
 (it's only declared functionality, not implemented yet):
@@ -88,7 +88,7 @@ Booru                                             |Original|Resized|Tag limit|Co
 
 *2 original pictures in PNG and JPG
 
-###Future features:
+### Future features:
 
 * [DONE] graphical user interface (using Tk or ttk)
 
